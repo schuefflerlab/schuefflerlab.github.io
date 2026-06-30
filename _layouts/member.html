@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <style>
+      body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; padding:0; }
+      header, footer { background:#f3f4f6; padding:12px 20px; }
+      nav ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:12px; }
+      nav a { text-decoration:none; color:#111827; }
+      main { padding:20px; max-width: 900px; margin: 0 auto; }
+      .member-header { margin-bottom: 1.5rem; }
+      .member-meta { margin: 0.5rem 0; color: #4b5563; }
+      .member-content { padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+      .member-contact a { color: #1d4ed8; text-decoration:none; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/team' | relative_url }}">Team</a></li>
+          <li><a href="{{ '/research' | relative_url }}">Research</a></li>
+          <li><a href="{{ '/teaching' | relative_url }}">Teaching</a></li>
+          <li><a href="{{ '/software' | relative_url }}">Software</a></li>
+          <li><a href="{{ '/jobs' | relative_url }}">Jobs</a></li>
+          <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class="member-header">
+          <h1>{{ page.title }}</h1>
+          <p class="member-meta">{{ page.position }}{% if page.department %} · {{ page.department }}{% endif %}</p>
+          <div class="member-meta member-contact">
+            <div>{{ page.address }}</div>
+            {% if page.email %}<div>✉️ <a href="mailto:{{ page.email }}">{{ page.email }}</a></div>{% endif %}
+            {% if page.phone %}<div>📞 {{ page.phone }}</div>{% endif %}
+          </div>
+        </header>
+
+        <section class="member-content">
+          {{ content }}
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+    </footer>
+  </body>
+</html>

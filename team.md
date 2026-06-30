@@ -6,7 +6,7 @@ permalink: /team/
 
 ## Team
 
-#### [Prof. Dr. Peter J. Schüffler](https://schuefflerlab.org/Members/pjs)
+#### [Prof. Dr. Peter J. Schüffler]({{ '/members/pjs/' | relative_url }})
 
 Head of Group
 
@@ -28,7 +28,7 @@ Trogerstrasse 18, office 2.068
 
 ---
 
-#### [Dr. Han Li](https://schuefflerlab.org/Members/hl)
+#### [Dr. Han Li]({{ '/members/hl/' | relative_url }})
 
 Postdoctoral Researcher
 
@@ -42,7 +42,7 @@ Trogerstrasse 18, office 2.058
 
 ---
 
-#### [Dr. Reza Nasirigerdeh](https://schuefflerlab.org/Members/rn)
+#### [Dr. Reza Nasirigerdeh]({{ '/members/rn/' | relative_url }})
 
 Postdoctoral Researcher
 
@@ -56,7 +56,7 @@ Trogerstrasse 18, office 2.058
 
 ---
 
-#### [Jingsong Liu](https://schuefflerlab.org/Members/jl)
+#### [Jingsong Liu]({{ '/members/jl/' | relative_url }})
 
 PhD Student
 
@@ -70,7 +70,7 @@ Trogerstrasse 18
 
 ---
 
-#### [Christian Grashei](https://schuefflerlab.org/Members/cg)
+#### [Christian Grashei]({{ '/members/cg/' | relative_url }})
 
 PhD Student
 
@@ -84,7 +84,7 @@ Trogerstrasse 18
 
 ---
 
-#### [Zhengyang Xu](https://schuefflerlab.org/Members/zx)
+#### [Zhengyang Xu]({{ '/members/zx/' | relative_url }})
 
 PhD Student
 
@@ -98,7 +98,7 @@ Trogerstrasse 18
 
 ---
 
-#### [Fabian Gülhan](https://schuefflerlab.org/Members/fg)
+#### [Fabian Gülhan]({{ '/members/fg/' | relative_url }})
 
 PhD Student
 
@@ -112,7 +112,7 @@ Trogerstrasse 18
 
 ---
 
-#### [Azar Kazemi](https://schuefflerlab.org/Members/ak)
+#### [Azar Kazemi]({{ '/members/ak/' | relative_url }})
 
 Guest PhD Student
 
@@ -126,7 +126,7 @@ Trogerstrasse 18
 
 ---
 
-#### [Oskar Thaeter](https://schuefflerlab.org/Members/ot)
+#### [Oskar Thaeter]({{ '/members/ot/' | relative_url }})
 
 Research Assistant
 
@@ -140,7 +140,7 @@ Trogerstrasse 18
 
 ---
 
-#### [Viola Iwuajoku](https://schuefflerlab.org/Members/vi)
+#### [Viola Iwuajoku]({{ '/members/vi/' | relative_url }})
 
 TA, Digital Pathology
 
