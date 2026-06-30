@@ -1,7 +1,7 @@
 const zoteroGroupID = '2938862';
 const zoteroCollectionKey = 'H4TUEY6S';
 const accessKey = 'TbhYOPqtA9CDpuQKxxUUevfx';
-const zoteroEndpoint = `https://api.zotero.org/groups/${zoteroGroupID}/collections/${zoteroCollectionKey}/items?v=3&key=${accessKey}`;
+const zoteroEndpoint = `https://api.zotero.org/groups/${zoteroGroupID}/collections/${zoteroCollectionKey}/items`;
 
 function escapeHtml(text) {
   return String(text || '').replace(/[&<>"]+/g, (char) => {
@@ -56,8 +56,9 @@ function parseNextLink(linkHeader) {
 
 async function fetchZoteroItems() {
   const items = [];
-  let url = `${zoteroEndpoint}&format=json&limit=100&start=0&include=data`; 
+  let url = `${zoteroEndpoint}?limit=100&start=0`; 
   while (url) {
+    url = `${url}&v=3&key=${accessKey}&format=json&include=data`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Zotero fetch failed: ${response.status} ${response.statusText}`);
