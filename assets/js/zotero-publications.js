@@ -81,14 +81,18 @@ async function fetchZoteroItems() {
   return items;
 }
 
-let allZoteroItems = [];
-
 function sortPublications(publications) {
   return publications.slice().sort((a, b) => {
     const da = Date.parse(a.data?.date || '') || 0;
     const db = Date.parse(b.data?.date || '') || 0;
     return db - da;
   });
+}
+
+function filterPublications(publications) {
+  return publications.filter(obj => {
+        return !['note', 'attachment'].includes(obj.data?.itemType || '');
+    })
 }
 
 function matchesSearch(item, query) {
@@ -137,11 +141,12 @@ async function renderZoteroPublications() {
 
   try {
     const items = await fetchZoteroItems();
-    allZoteroItems = sortPublications(items);
-    renderPublications(allZoteroItems);
+    let allZoteroItems = sortPublications(items);
+    let filteredZoteroItems = filterPublications(allZoteroItems);
+    renderPublications(filteredZoteroItems);
     searchInput.disabled = false;
     searchInput.addEventListener('input', (event) => {
-      renderPublications(allZoteroItems, event.target.value);
+      renderPublications(filteredZoteroItems, event.target.value);
     });
   } catch (error) {
     container.innerHTML = `<p>Failed to load Zotero publications: ${escapeHtml(error.message)}</p>`;
