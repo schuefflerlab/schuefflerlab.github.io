@@ -89,6 +89,8 @@ async function renderZoteroPublications() {
       return;
     }
 
+    console.log(`Fetched ${items.length} Zotero items from group ${zoteroGroupID}, collection ${zoteroCollectionKey}.`);
+
     const sortedItems = sortPublications(items);
     const html = sortedItems
       .map((item) => createPublicationHtml(item))
