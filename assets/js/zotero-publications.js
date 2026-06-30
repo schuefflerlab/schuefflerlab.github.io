@@ -58,7 +58,7 @@ async function fetchZoteroItems() {
   const items = [];
   let url = `${zoteroEndpoint}?limit=100&start=0`; 
   while (url) {
-    url = `${url}&v=3&key=${accessKey}&format=json&include=data`;
+    url = `${url}&v=3&key=${accessKey}&format=json`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Zotero fetch failed: ${response.status} ${response.statusText}`);
@@ -89,8 +89,6 @@ async function renderZoteroPublications() {
       container.innerHTML = '<p>No Zotero publications found for this collection.</p>';
       return;
     }
-
-    console.log(`Fetched ${items.length} Zotero items from group ${zoteroGroupID}, collection ${zoteroCollectionKey}.`);
 
     const sortedItems = sortPublications(items);
     const html = sortedItems
