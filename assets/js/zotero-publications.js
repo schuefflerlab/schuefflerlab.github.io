@@ -113,7 +113,6 @@ function renderPublications(items, query = '') {
   if (!filtered.length) {
     container.innerHTML = `
       <div class="publications">
-        <p>Publications loaded from Zotero group <strong>${zoteroGroupID}</strong>.</p>
         <p>No publications match "${escapeHtml(query)}".</p>
       </div>
     `;
@@ -126,7 +125,6 @@ function renderPublications(items, query = '') {
 
   container.innerHTML = `
     <div class="publications">
-      <p>Publications loaded from Zotero group <strong>${zoteroGroupID}</strong>.</p>
       <ul class="publication-list">${html}</ul>
     </div>
   `;
