@@ -147,7 +147,7 @@ function createPublicationHtml(item, query) {
   let data = item.data || {};
   let title = data.title || data.shortTitle || 'Untitled';
   let authors = formatCreators(data.creators) || 'Unknown authors';
-  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.repository, data.date].filter(Boolean).join(', ');
+  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, data.date].filter(Boolean).join(', ');
   let links = [];
   if (data.DOI) {
     links.push(`<a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">DOI</a>`);
@@ -219,7 +219,7 @@ function matchesSearch(item, query) {
   let data = item.data || {};
   let title = data.title || data.shortTitle || '';
   let authors = formatCreators(data.creators);
-  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.repository, data.date, data.publisher].filter(Boolean).join(' ');
+  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, data.date, data.publisher].filter(Boolean).join(' ');
   let haystack = [title, authors, venue, data.url || '', data.DOI || ''].join(' ').toLowerCase();
   return haystack.includes(query.toLowerCase());
 }
