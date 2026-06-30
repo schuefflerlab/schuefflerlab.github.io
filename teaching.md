@@ -22,5 +22,5 @@ For all semester dates, please refer to the [TUM Academic Calendar](https://www.
   frameborder="0"
   style="border:1px solid #d1d5db; border-radius: 8px;"
   loading="lazy"
-  title="TUM Courses Crawler"
+  title="TUM Courses"
 ></iframe>
