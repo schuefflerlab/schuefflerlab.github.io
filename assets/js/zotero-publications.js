@@ -28,17 +28,17 @@ function escapeRegExp(text) {
 
 function highlightText(text, query) {
   if (!query) return escapeHtml(text);
-  const escaped = escapeHtml(text);
-  const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+  let escaped = escapeHtml(text);
+  let regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
   return escaped.replace(regex, '<mark>$1</mark>');
 }
 
 function createPublicationHtml(item, query) {
-  const data = item.data || {};
-  const title = data.title || data.shortTitle || 'Untitled';
-  const authors = formatCreators(data.creators) || 'Unknown authors';
-  const venue = [data.publicationTitle || data.repository, data.date].filter(Boolean).join(', ');
-  const links = [];
+  let data = item.data || {};
+  let title = data.title || data.shortTitle || 'Untitled';
+  let authors = formatCreators(data.creators) || 'Unknown authors';
+  let venue = [data.publicationTitle || data.conferenceName || data.repository, data.date].filter(Boolean).join(', ');
+  let links = [];
   if (data.DOI) {
     links.push(`<a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">DOI</a>`);
   }
@@ -61,20 +61,20 @@ function createPublicationHtml(item, query) {
 
 function parseNextLink(linkHeader) {
   if (!linkHeader) return null;
-  const match = linkHeader.match(/<([^>]+)>; rel="next"/);
+  let match = linkHeader.match(/<([^>]+)>; rel="next"/);
   return match ? match[1] : null;
 }
 
 async function fetchZoteroItems() {
-  const items = [];
+  let items = [];
   let url = `${zoteroEndpoint}?limit=100&start=0`; 
   while (url) {
     url = `${url}&v=3&key=${accessKey}&format=json`;
-    const response = await fetch(url);
+    let response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Zotero fetch failed: ${response.status} ${response.statusText}`);
     }
-    const batch = await response.json();
+    let batch = await response.json();
     items.push(...batch);
     url = parseNextLink(response.headers.get('Link'));
   }
@@ -83,8 +83,8 @@ async function fetchZoteroItems() {
 
 function sortPublications(publications) {
   return publications.slice().sort((a, b) => {
-    const da = Date.parse(a.data?.date || '') || 0;
-    const db = Date.parse(b.data?.date || '') || 0;
+    let da = Date.parse(a.data?.date || '') || 0;
+    let db = Date.parse(b.data?.date || '') || 0;
     return db - da;
   });
 }
@@ -97,18 +97,18 @@ function filterPublications(publications) {
 
 function matchesSearch(item, query) {
   if (!query) return true;
-  const data = item.data || {};
-  const title = data.title || data.shortTitle || '';
-  const authors = formatCreators(data.creators);
-  const venue = [data.publicationTitle, data.date, data.publisher].filter(Boolean).join(' ');
-  const haystack = [title, authors, venue, data.url || '', data.DOI || ''].join(' ').toLowerCase();
+  let data = item.data || {};
+  let title = data.title || data.shortTitle || '';
+  let authors = formatCreators(data.creators);
+  let venue = [data.publicationTitle || data.conferenceName || data.repository, data.date, data.publisher].filter(Boolean).join(' ');
+  let haystack = [title, authors, venue, data.url || '', data.DOI || ''].join(' ').toLowerCase();
   return haystack.includes(query.toLowerCase());
 }
 
 function renderPublications(items, query = '') {
-  const container = document.getElementById('zotero-publications');
+  let container = document.getElementById('zotero-publications');
   if (!container) return;
-  const filtered = items.filter((item) => matchesSearch(item, query));
+  let filtered = items.filter((item) => matchesSearch(item, query));
   if (!filtered.length) {
     container.innerHTML = `
       <div class="publications">
@@ -118,7 +118,7 @@ function renderPublications(items, query = '') {
     return;
   }
 
-  const html = filtered
+  let html = filtered
     .map((item) => createPublicationHtml(item, query))
     .join('');
 
@@ -130,14 +130,14 @@ function renderPublications(items, query = '') {
 }
 
 async function renderZoteroPublications() {
-  const container = document.getElementById('zotero-publications');
-  const searchInput = document.getElementById('zotero-search-input');
+  let container = document.getElementById('zotero-publications');
+  let searchInput = document.getElementById('zotero-search-input');
   if (!container || !searchInput) return;
   container.innerHTML = '<p>Loading publications from Zotero…</p>';
   searchInput.disabled = true;
 
   try {
-    const items = await fetchZoteroItems();
+    let items = await fetchZoteroItems();
     let filteredZoteroItems = filterPublications(items);
     let sortedZoteroItems = sortPublications(filteredZoteroItems);
     renderPublications(sortedZoteroItems);
