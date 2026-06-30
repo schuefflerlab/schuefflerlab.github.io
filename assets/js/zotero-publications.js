@@ -22,7 +22,18 @@ function formatCreators(creators) {
     .join(', ');
 }
 
-function createPublicationHtml(item) {
+function escapeRegExp(text) {
+  return String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function highlightText(text, query) {
+  if (!query) return escapeHtml(text);
+  const escaped = escapeHtml(text);
+  const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+  return escaped.replace(regex, '<mark>$1</mark>');
+}
+
+function createPublicationHtml(item, query) {
   const data = item.data || {};
   const title = data.title || data.shortTitle || 'Untitled';
   const authors = formatCreators(data.creators) || 'Unknown authors';
@@ -40,9 +51,9 @@ function createPublicationHtml(item) {
 
   return `
     <li class="publication-item">
-      <p class="publication-title">${escapeHtml(title)}</p>
-      <p class="publication-meta">${escapeHtml(authors)}</p>
-      ${venue ? `<p class="publication-meta">${escapeHtml(venue)}</p>` : ''}
+      <p class="publication-title">${highlightText(title, query)}</p>
+      <p class="publication-meta">${highlightText(authors, query)}</p>
+      ${venue ? `<p class="publication-meta">${highlightText(venue, query)}</p>` : ''}
       <div class="publication-links">${links.join(' ')}</div>
     </li>
   `;
@@ -70,6 +81,8 @@ async function fetchZoteroItems() {
   return items;
 }
 
+let allZoteroItems = [];
+
 function sortPublications(publications) {
   return publications.slice().sort((a, b) => {
     const da = Date.parse(a.data?.date || '') || 0;
@@ -78,31 +91,61 @@ function sortPublications(publications) {
   });
 }
 
-async function renderZoteroPublications() {
+function matchesSearch(item, query) {
+  if (!query) return true;
+  const data = item.data || {};
+  const title = data.title || data.shortTitle || '';
+  const authors = formatCreators(data.creators);
+  const venue = [data.publicationTitle, data.date, data.publisher].filter(Boolean).join(' ');
+  const notes = [data.abstractNote, data.notes].filter(Boolean).join(' ');
+  const haystack = [title, authors, venue, notes, data.url || '', data.DOI || ''].join(' ').toLowerCase();
+  return haystack.includes(query.toLowerCase());
+}
+
+function renderPublications(items, query = '') {
   const container = document.getElementById('zotero-publications');
   if (!container) return;
-  container.innerHTML = '<p>Loading publications from Zotero…</p>';
-
-  try {
-    const items = await fetchZoteroItems();
-    if (!items.length) {
-      container.innerHTML = '<p>No Zotero publications found for this collection.</p>';
-      return;
-    }
-
-    const sortedItems = sortPublications(items);
-    const html = sortedItems
-      .map((item) => createPublicationHtml(item))
-      .join('');
-
+  const filtered = items.filter((item) => matchesSearch(item, query));
+  if (!filtered.length) {
     container.innerHTML = `
       <div class="publications">
         <p>Publications loaded from Zotero group <strong>${zoteroGroupID}</strong>.</p>
-        <ul class="publication-list">${html}</ul>
+        <p>No publications match "${escapeHtml(query)}".</p>
       </div>
     `;
+    return;
+  }
+
+  const html = filtered
+    .map((item) => createPublicationHtml(item, query))
+    .join('');
+
+  container.innerHTML = `
+    <div class="publications">
+      <p>Publications loaded from Zotero group <strong>${zoteroGroupID}</strong>.</p>
+      <ul class="publication-list">${html}</ul>
+    </div>
+  `;
+}
+
+async function renderZoteroPublications() {
+  const container = document.getElementById('zotero-publications');
+  const searchInput = document.getElementById('zotero-search-input');
+  if (!container || !searchInput) return;
+  container.innerHTML = '<p>Loading publications from Zotero…</p>';
+  searchInput.disabled = true;
+
+  try {
+    const items = await fetchZoteroItems();
+    allZoteroItems = sortPublications(items);
+    renderPublications(allZoteroItems);
+    searchInput.disabled = false;
+    searchInput.addEventListener('input', (event) => {
+      renderPublications(allZoteroItems, event.target.value);
+    });
   } catch (error) {
     container.innerHTML = `<p>Failed to load Zotero publications: ${escapeHtml(error.message)}</p>`;
+    searchInput.disabled = false;
   }
 }
 
