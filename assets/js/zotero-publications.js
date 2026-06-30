@@ -37,7 +37,7 @@ function createPublicationHtml(item, query) {
   const data = item.data || {};
   const title = data.title || data.shortTitle || 'Untitled';
   const authors = formatCreators(data.creators) || 'Unknown authors';
-  const venue = [data.publicationTitle, data.date].filter(Boolean).join(', ');
+  const venue = [data.publicationTitle || data.repository, data.date].filter(Boolean).join(', ');
   const links = [];
   if (data.DOI) {
     links.push(`<a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">DOI</a>`);
@@ -138,12 +138,12 @@ async function renderZoteroPublications() {
 
   try {
     const items = await fetchZoteroItems();
-    let allZoteroItems = sortPublications(items);
-    let filteredZoteroItems = filterPublications(allZoteroItems);
-    renderPublications(filteredZoteroItems);
+    let filteredZoteroItems = filterPublications(items);
+    let sortedZoteroItems = sortPublications(filteredZoteroItems);
+    renderPublications(sortedZoteroItems);
     searchInput.disabled = false;
     searchInput.addEventListener('input', (event) => {
-      renderPublications(filteredZoteroItems, event.target.value);
+      renderPublications(sortedZoteroItems, event.target.value);
     });
   } catch (error) {
     container.innerHTML = `<p>Failed to load Zotero publications: ${escapeHtml(error.message)}</p>`;

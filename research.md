@@ -4,9 +4,9 @@ title: Research
 permalink: /research/
 ---
 
-## Research Publications
+## Research
 
-<input id="zotero-search-input" class="search-input" type="search" placeholder="Search authors, titles, or publication metadata" aria-label="Search publications" />
+<input id="zotero-search-input" class="search-input" type="search" placeholder="Search publications ..." aria-label="Search publications" />
 
 <div id="zotero-publications"></div>
 
