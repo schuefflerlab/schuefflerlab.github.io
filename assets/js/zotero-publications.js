@@ -56,7 +56,7 @@ function parseNextLink(linkHeader) {
 
 async function fetchZoteroItems() {
   const items = [];
-  let url = `${zoteroEndpoint}?format=json&limit=100&start=0&include=data`; 
+  let url = `${zoteroEndpoint}&format=json&limit=100&start=0&include=data`; 
   while (url) {
     const response = await fetch(url);
     if (!response.ok) {
