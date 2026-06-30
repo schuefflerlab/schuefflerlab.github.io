@@ -101,8 +101,7 @@ function matchesSearch(item, query) {
   const title = data.title || data.shortTitle || '';
   const authors = formatCreators(data.creators);
   const venue = [data.publicationTitle, data.date, data.publisher].filter(Boolean).join(' ');
-  const notes = [data.abstractNote, data.notes].filter(Boolean).join(' ');
-  const haystack = [title, authors, venue, notes, data.url || '', data.DOI || ''].join(' ').toLowerCase();
+  const haystack = [title, authors, venue, data.url || '', data.DOI || ''].join(' ').toLowerCase();
   return haystack.includes(query.toLowerCase());
 }
 
