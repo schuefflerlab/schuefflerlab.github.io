@@ -1,6 +1,7 @@
 const zoteroGroupID = '2938862';
 const zoteroCollectionKey = 'H4TUEY6S';
-const zoteroEndpoint = `https://api.zotero.org/groups/${zoteroGroupID}/collections/${zoteroCollectionKey}/items`;
+const accessKey = 'TbhYOPqtA9CDpuQKxxUUevfx';
+const zoteroEndpoint = `https://api.zotero.org/groups/${zoteroGroupID}/collections/${zoteroCollectionKey}/items?v=3&key=${accessKey}`;
 
 function escapeHtml(text) {
   return String(text || '').replace(/[&<>"]+/g, (char) => {
@@ -95,7 +96,7 @@ async function renderZoteroPublications() {
 
     container.innerHTML = `
       <div class="publications">
-        <p>Publications loaded from Zotero group <strong>${zoteroGroupID}</strong>, collection <strong>${zoteroCollectionKey}</strong>.</p>
+        <p>Publications loaded from Zotero group <strong>${zoteroGroupID}</strong>.</p>
         <ul class="publication-list">${html}</ul>
       </div>
     `;
