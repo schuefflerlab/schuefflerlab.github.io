@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <style>
+      body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; padding:0; }
+      header, footer { background:#f3f4f6; padding:12px 20px; }
+      nav ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:12px; }
+      nav a { text-decoration:none; color:#111827; }
+      main { padding:20px; max-width: 900px; margin: 0 auto; }
+      .app-header { margin-bottom: 1.5rem; }
+      .app-meta { color:#4b5563; margin: 0.5rem 0; }
+      .app-links a { color:#1d4ed8; text-decoration:none; margin-right:1rem; }
+      .app-description { padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/team' | relative_url }}">Team</a></li>
+          <li><a href="{{ '/research' | relative_url }}">Research</a></li>
+          <li><a href="{{ '/teaching' | relative_url }}">Teaching</a></li>
+          <li><a href="{{ '/software' | relative_url }}">Software</a></li>
+          <li><a href="{{ '/jobs' | relative_url }}">Jobs</a></li>
+          <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class="app-header">
+          <h1>{{ page.title }}</h1>
+          {% if page.subtitle %}<p class="app-meta">{{ page.subtitle }}</p>{% endif %}
+          <div class="app-meta">
+            {% if page.platform %}<span>Platform: {{ page.platform }}</span><br>{% endif %}
+            {% if page.language %}<span>Language: {{ page.language }}</span><br>{% endif %}
+            {% if page.link %}<span class="app-links"><a href="{{ page.link }}" target="_blank" rel="noopener">Official Link</a></span>{% endif %}
+          </div>
+        </header>
+
+        <section class="app-description">
+          {{ content }}
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+    </footer>
+  </body>
+</html>
