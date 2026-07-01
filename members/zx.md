@@ -5,6 +5,7 @@ position: PhD Student
 department: Technical University of Munich
 address: Trogerstrasse 18, 81675 Munich
 email: zhengyang.xu@tum.de
+image: /assets/images/members/zx.jpg
 permalink: /members/zx/
 ---
 

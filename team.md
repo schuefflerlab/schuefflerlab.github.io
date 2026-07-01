@@ -8,6 +8,8 @@ permalink: /team/
 
 #### [Prof. Dr. Peter J. Schüffler]({{ '/members/pjs/' | relative_url }})
 
+<img src="{{ '/assets/images/members/pjs.jpg' | relative_url }}" alt="Peter J. Schüffler" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
+
 Head of Group
 
 Assistant Professor
@@ -30,6 +32,8 @@ Trogerstrasse 18, office 2.068
 
 #### [Dr. Han Li]({{ '/members/hl/' | relative_url }})
 
+<img src="{{ '/assets/images/members/hl.jpg' | relative_url }}" alt="Dr. Han Li" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
+
 Postdoctoral Researcher
 
 Technical University of Munich
@@ -43,6 +47,8 @@ Trogerstrasse 18, office 2.058
 ---
 
 #### [Dr. Reza Nasirigerdeh]({{ '/members/rn/' | relative_url }})
+
+<img src="{{ '/assets/images/members/rn.jpg' | relative_url }}" alt="Dr. Reza Nasirigerdeh" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
 
 Postdoctoral Researcher
 
@@ -58,6 +64,8 @@ Trogerstrasse 18, office 2.058
 
 #### [Jingsong Liu]({{ '/members/jl/' | relative_url }})
 
+<img src="{{ '/assets/images/members/jl.jpg' | relative_url }}" alt="Jingsong Liu" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
+
 PhD Student
 
 Technical University of Munich
@@ -71,6 +79,8 @@ Trogerstrasse 18
 ---
 
 #### [Christian Grashei]({{ '/members/cg/' | relative_url }})
+
+<img src="{{ '/assets/images/members/cg.jpg' | relative_url }}" alt="Christian Grashei" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
 
 PhD Student
 
@@ -86,6 +96,8 @@ Trogerstrasse 18
 
 #### [Zhengyang Xu]({{ '/members/zx/' | relative_url }})
 
+<img src="{{ '/assets/images/members/zx.jpg' | relative_url }}" alt="Zhengyang Xu" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
+
 PhD Student
 
 Technical University of Munich
@@ -99,6 +111,8 @@ Trogerstrasse 18
 ---
 
 #### [Fabian Gülhan]({{ '/members/fg/' | relative_url }})
+
+<img src="{{ '/assets/images/members/fg.jpg' | relative_url }}" alt="Fabian Gülhan" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
 
 PhD Student
 
@@ -114,6 +128,8 @@ Trogerstrasse 18
 
 #### [Azar Kazemi]({{ '/members/ak/' | relative_url }})
 
+<img src="{{ '/assets/images/members/ak.jpg' | relative_url }}" alt="Azar Kazemi" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
+
 Guest PhD Student
 
 Technical University of Munich
@@ -128,6 +144,8 @@ Trogerstrasse 18
 
 #### [Oskar Thaeter]({{ '/members/ot/' | relative_url }})
 
+<img src="{{ '/assets/images/members/ot.jpg' | relative_url }}" alt="Oskar Thaeter" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
+
 Research Assistant
 
 Technical University of Munich
@@ -141,6 +159,8 @@ Trogerstrasse 18
 ---
 
 #### [Viola Iwuajoku]({{ '/members/vi/' | relative_url }})
+
+<img src="{{ '/assets/images/members/vi.jpg' | relative_url }}" alt="Viola Iwuajoku" style="width:160px; max-width:100%; border-radius:0.75rem; margin-bottom: 1rem;">
 
 TA, Digital Pathology
 

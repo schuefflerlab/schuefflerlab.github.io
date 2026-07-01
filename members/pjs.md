@@ -6,6 +6,7 @@ department: TUM School of Medicine · TUM Department of Informatics · Munich Da
 address: Trogerstrasse 18, office 2.068, 81675 Munich
 email: peter.schueffler@tum.de
 phone: +49-89-4140-8500
+image: /assets/images/members/pjs.jpg
 permalink: /members/pjs/
 ---
 

@@ -5,6 +5,7 @@ position: Research Assistant
 department: Technical University of Munich
 address: Trogerstrasse 18, 81675 Munich
 email: oskar.thaeter@tum.de
+image: /assets/images/members/ot.jpg
 permalink: /members/ot/
 ---
 

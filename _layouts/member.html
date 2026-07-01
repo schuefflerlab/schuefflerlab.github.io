@@ -10,7 +10,9 @@
       nav ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:12px; }
       nav a { text-decoration:none; color:#111827; }
       main { padding:20px; max-width: 900px; margin: 0 auto; }
-      .member-header { margin-bottom: 1.5rem; }
+      .member-header { margin-bottom: 1.5rem; display:grid; gap: 1rem; }
+      .member-card { display:flex; flex-wrap:wrap; gap: 1rem; align-items:center; }
+      .member-card img { width: 160px; max-width:100%; height:auto; border-radius: 0.75rem; object-fit: cover; }
       .member-meta { margin: 0.5rem 0; color: #4b5563; }
       .member-content { padding-top: 1rem; border-top: 1px solid #e5e7eb; }
       .member-contact a { color: #1d4ed8; text-decoration:none; }
@@ -34,6 +36,20 @@
     <main>
       <article>
         <header class="member-header">
+          {% if page.image %}
+          <div class="member-card">
+            <img src="{{ page.image | relative_url }}" alt="Photo of {{ page.title }}">
+            <div>
+              <h1>{{ page.title }}</h1>
+              <p class="member-meta">{{ page.position }}{% if page.department %} · {{ page.department }}{% endif %}</p>
+              <div class="member-meta member-contact">
+                <div>{{ page.address }}</div>
+                {% if page.email %}<div>✉️ <a href="mailto:{{ page.email }}">{{ page.email }}</a></div>{% endif %}
+                {% if page.phone %}<div>📞 {{ page.phone }}</div>{% endif %}
+              </div>
+            </div>
+          </div>
+          {% else %}
           <h1>{{ page.title }}</h1>
           <p class="member-meta">{{ page.position }}{% if page.department %} · {{ page.department }}{% endif %}</p>
           <div class="member-meta member-contact">
@@ -41,6 +57,7 @@
             {% if page.email %}<div>✉️ <a href="mailto:{{ page.email }}">{{ page.email }}</a></div>{% endif %}
             {% if page.phone %}<div>📞 {{ page.phone }}</div>{% endif %}
           </div>
+          {% endif %}
         </header>
 
         <section class="member-content">

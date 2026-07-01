@@ -5,6 +5,7 @@ position: Postdoctoral Researcher
 department: Technical University of Munich
 address: Trogerstrasse 18, office 2.058, 81675 Munich
 email: tum_han.li@tum.de
+image: /assets/images/members/hl.jpg
 permalink: /members/hl/
 ---
 

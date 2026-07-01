@@ -5,6 +5,7 @@ position: Guest PhD Student
 department: Technical University of Munich
 address: Trogerstrasse 18, 81675 Munich
 email: azar.kazemi@tum.de
+image: /assets/images/members/ak.jpg
 permalink: /members/ak/
 ---
 

@@ -5,6 +5,7 @@ position: Postdoctoral Researcher
 department: Technical University of Munich
 address: Trogerstrasse 18, office 2.058, 81675 Munich
 email: reza.nasirigerdeh@tum.de
+image: /assets/images/members/rn.jpg
 permalink: /members/rn/
 ---
 
