@@ -8,7 +8,7 @@ permalink: /contact/
 
 ### Schüffler Lab
 
-![Schüffler Lab](https://schuefflerlab.org/images/group.jpg)
+![Schüffler Lab](/assets/images/group.jpg)
 
 Prof. Dr. Peter Schüffler
 
