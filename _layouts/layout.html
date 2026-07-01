@@ -167,7 +167,7 @@
         gap: 20px;
       }
       .site-footer h2 { font-size: 1rem; margin: 0 0 10px; color: white; }
-      .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+      .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; }
       .site-footer a { color: #cbd5e1; }
       .site-footer a:hover { color: white; }
       .footer-meta {
@@ -181,6 +181,8 @@
         flex-wrap: wrap;
         color: #cbd5e1;
       }
+      .logo-inv { filter: grayscale(1) contrast(100) brightness(1) invert(65%); }
+      .logo-xsmall { max-height: 15px; max-width: 15px;}
       @media (max-width: 780px) {
         .site-header { align-items: flex-start; }
         .site-nav { width: 100%; }
@@ -239,6 +241,33 @@
               <li><a href="https://mcml.ai/">Munich Center for Machine Learning</a></li>
             </ul>
           </div>
+
+          <div>
+            <h2>Prof. Dr. Peter Schüffler</h2>
+              <p>
+                  Technical University of Munich<br />
+                  Trogerstrasse 18<br />
+                  81675 Munich
+              </p>
+              <ul>
+                <li><a href="https://www.professoren.tum.de/schueffler-peter">Find us at the TUM</a></li>
+                <li><a href="https://www.mdsi.tum.de/mdsi/ueber-uns/kernmitglieder/#c390">Find us at the MDSI</a></li>
+                <li><a href="https://mcml.ai/research/areac/">Find us at the MCML</a></li>
+                <li><a href="https://mastodon.social/@@schuefflerlab" target="_blank"><img src="{{ '/assets/images/mastodon.svg' | relative_url }}" class="logo-xsmall logo-inv" title="Mastodon" /></a>&emsp;
+                    <a href="https://x.com/schuefflerlab" target="_blank"><img src="{{ '/assets/images/X_logo_2023.svg' | relative_url }}" class="logo-xsmall logo-inv" title="X" /></a>&emsp;
+                    <a href="https://github.com/schuefflerlab" target="_blank"><img src="{{ '/assets/images/github.png' | relative_url }}" class="logo-xsmall logo-inv" title="Github" /></a></li>
+              </ul>
+            </div>
+        </div>
+
+        <div class="footer-meta">
+          <span>&copy; {{ site.time | date: "%Y" }} Schüffler Lab</span>
+          <a href="{{ '/impressum' | relative_url }}">Impressum</a>
+        </div>
+      </footer>
+    </div>
+              </ul>
+            </div>
         </div>
 
         <div class="footer-meta">
