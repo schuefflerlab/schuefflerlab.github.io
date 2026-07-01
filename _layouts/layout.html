@@ -42,7 +42,32 @@
     </main>
 
     <footer>
-      <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+      <div>
+        <h2>Internal</h2>
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/team' | relative_url }}">Team</a></li>
+          <li><a href="{{ '/research' | relative_url }}">Research</a></li>
+          <li><a href="{{ '/teaching' | relative_url }}">Teaching</a></li>
+          <li><a href="{{ '/software' | relative_url }}">Software</a></li>
+          <li><a href="{{ '/jobs' | relative_url }}">Jobs</a></li>
+          <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>External</h2>
+        <ul>
+          <li><a href="https://www.tum.de/">TUM</a></li>
+          <li><a href="https://www.pm.mh.tum.de/en/path/">TUM Pathology</a></li>
+          <li><a href="https://www.in.tum.de/">TUM Informatics</a></li>
+          <li><a href="https://www.mdsi.tum.de/">Munich Data Science Institute</a></li>
+          <li><a href="https://mcml.ai/">Munich Center for Machine Learning</a></li>
+        </ul>
+      </div>
+
+      <p>&copy; {{ site.time | date: "%Y" }} Schüffler Lab</p>
+      <p><a href="{{ '/impressum' | relative_url }}">Impressum</a></p>
     </footer>
   </body>
 </html>
