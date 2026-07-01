@@ -252,7 +252,7 @@ async function renderZoteroPublications() {
   let container = document.getElementById('zotero-publications');
   let searchInput = document.getElementById('zotero-search-input');
   if (!container || !searchInput) return;
-  container.innerHTML = '<p>Loading publications from Zotero…</p>';
+  container.innerHTML = '<p>Loading publications ...</p>';
   searchInput.disabled = true;
 
   try {
@@ -265,7 +265,7 @@ async function renderZoteroPublications() {
       renderPublications(sortedZoteroItems, event.target.value);
     });
   } catch (error) {
-    container.innerHTML = `<p>Failed to load Zotero publications: ${escapeHtml(error.message)}</p>`;
+    container.innerHTML = `<p>Failed to load publications: ${escapeHtml(error.message)}</p>`;
     searchInput.disabled = false;
   }
 }
