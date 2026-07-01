@@ -11,6 +11,8 @@
       nav a { text-decoration:none; color:#111827; }
       main { padding:20px; max-width: 900px; margin: 0 auto; }
       .app-header { margin-bottom: 1.5rem; }
+      .app-card { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; margin-bottom:1rem; }
+      .app-image { width:220px; max-width:100%; border-radius:0.75rem; object-fit:cover; }
       .app-meta { color:#4b5563; margin: 0.5rem 0; }
       .app-links a { color:#1d4ed8; text-decoration:none; margin-right:1rem; }
       .app-description { padding-top: 1rem; border-top: 1px solid #e5e7eb; }
@@ -34,6 +36,20 @@
     <main>
       <article>
         <header class="app-header">
+          {% if page.image %}
+          <div class="app-card">
+            <img class="app-image" src="{{ page.image | relative_url }}" alt="Screenshot of {{ page.title }}">
+            <div>
+              <h1>{{ page.title }}</h1>
+              {% if page.subtitle %}<p class="app-meta">{{ page.subtitle }}</p>{% endif %}
+              <div class="app-meta">
+                {% if page.platform %}<span>Platform: {{ page.platform }}</span><br>{% endif %}
+                {% if page.language %}<span>Language: {{ page.language }}</span><br>{% endif %}
+                {% if page.link %}<span class="app-links"><a href="{{ page.link }}" target="_blank" rel="noopener">Official Link</a></span>{% endif %}
+              </div>
+            </div>
+          </div>
+          {% else %}
           <h1>{{ page.title }}</h1>
           {% if page.subtitle %}<p class="app-meta">{{ page.subtitle }}</p>{% endif %}
           <div class="app-meta">
@@ -41,7 +57,7 @@
             {% if page.language %}<span>Language: {{ page.language }}</span><br>{% endif %}
             {% if page.link %}<span class="app-links"><a href="{{ page.link }}" target="_blank" rel="noopener">Official Link</a></span>{% endif %}
           </div>
-        </header>
+          {% endif %}
 
         <section class="app-description">
           {{ content }}
