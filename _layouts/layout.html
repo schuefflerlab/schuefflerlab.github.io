@@ -20,6 +20,8 @@
       .publication-meta { color:#4b5563; margin: 0.25rem 0 0.75rem; }
       .publication-links a { color:#1d4ed8; text-decoration:none; margin-right: 1rem; }
       .publication-links a:hover { text-decoration:underline; }
+      header { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+      .header-brand img { height:48px; width:auto; display:block; }
       .hero-image { max-width:100%; height:auto; margin:1rem 0 1.5rem; border-radius:8px; }
       .logo-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:16px; align-items:center; margin:1rem 0 1.5rem; }
       .logo-grid a { display:flex; justify-content:center; align-items:center; padding:10px; border:1px solid #e5e7eb; border-radius:8px; background:#fff; min-height:90px; }
@@ -28,6 +30,11 @@
   </head>
   <body>
     <header>
+      <div class="header-brand">
+        <a href="{{ '/' | relative_url }}">
+          <img src="{{ '/assets/images/homepage/Logo1.png' | relative_url }}" alt="Schüffler Lab logo" />
+        </a>
+      </div>
       <nav>
         <ul>
           <li><a href="{{ '/' | relative_url }}">Home</a></li>
