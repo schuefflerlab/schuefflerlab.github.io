@@ -18,7 +18,7 @@ For all semester dates, please refer to the [TUM Academic Calendar](https://www.
 <iframe
   src="https://schuefflerlab.org/TUMCoursesCrawler"
   width="100%"
-  height="800"
+  height="500"
   frameborder="0"
   style="border:1px solid #d1d5db; border-radius: 8px;"
   loading="lazy"

@@ -51,7 +51,6 @@ permalink: /team/
 <div class="team-member">
   <img src="{{ '/assets/images/members/pjs.jpg' | relative_url }}" alt="Peter J. Schüffler">
   <h4><a href="{{ '/members/pjs/' | relative_url }}">Prof. Dr. Peter J. Schüffler</a></h4>
-  <p>Head of Group</p>
   <p>Assistant Professor</p>
   <p>TUM School of Medicine<br />TUM Department of Informatics<br />Munich Data Science Institute<br />Trogerstrasse 18, office 2.068<br />81675 Munich</p>
   <p>✉️ <a href="mailto:peter.schueffler@tum.de">peter.schueffler@tum.de</a></p>
