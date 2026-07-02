@@ -14,7 +14,7 @@
       .app-card { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; margin-bottom:1rem; }
       .app-image { width:220px; max-width:100%; border-radius:0.75rem; object-fit:cover; }
       .app-meta { color:#4b5563; margin: 0.5rem 0; }
-      .app-links a { color:#1d4ed8; text-decoration:none; margin-right:1rem; }
+      .app-links a { color:#1d4ed8; text-decoration:none; margin-right:1rem; margin-top:1rem}
       .app-description { padding-top: 1rem; border-top: 1px solid #e5e7eb; }
     </style>
   </head>
@@ -45,7 +45,7 @@
               <div class="app-meta">
                 {% if page.platform %}<span>Platform: {{ page.platform }}</span><br>{% endif %}
                 {% if page.language %}<span>Language: {{ page.language }}</span><br>{% endif %}
-                {% if page.link %}<span class="app-links"><a href="{{ page.link }}" target="_blank" rel="noopener">{{ page.link }}</a></span>{% endif %}
+                {% if page.link %}<p><span class="app-links"><a href="{{ page.link }}" target="_blank" rel="noopener">{{ page.link }}</a></span></p>{% endif %}
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
           <div class="app-meta">
             {% if page.platform %}<span>Platform: {{ page.platform }}</span><br>{% endif %}
             {% if page.language %}<span>Language: {{ page.language }}</span><br>{% endif %}
-            {% if page.link %}<span class="app-links"><a href="{{ page.link }}" target="_blank" rel="noopener">{{ page.link }}</a></span>{% endif %}
+            {% if page.link %}<p><span class="app-links"><a href="{{ page.link }}" target="_blank" rel="noopener">{{ page.link }}</a></span></p>{% endif %}
           </div>
           {% endif %}
 
