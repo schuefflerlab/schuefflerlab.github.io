@@ -150,10 +150,10 @@ function createPublicationHtml(item, query) {
   let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, data.date].filter(Boolean).join(', ');
   let links = [];
   if (data.DOI) {
-    links.push(`<a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">DOI</a>`);
+    links.push(`doi: <a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">${encodeURIComponent(data.DOI)}</a>`);
   }
   if (data.url) {
-    links.push(`<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener">URL</a>`);
+    links.push(`<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener">open article</a>`);
   }
   if (data.archiveLocation) {
     links.push(`<span>${escapeHtml(data.archiveLocation)}</span>`);
