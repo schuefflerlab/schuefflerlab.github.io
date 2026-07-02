@@ -6,8 +6,6 @@ permalink: /software/
 
 ## Software
 
-Many software packages exist for medical image processing. We emphasize machine learning in our tools to enable algorithms to learn from the user's experience. Below is a list of freely available software tools for data-driven image analysis.
-
 <style>
 .software-list {
   list-style: none;
@@ -63,9 +61,11 @@ Many software packages exist for medical image processing. We emphasize machine 
       </div>
     </a>
   </li>
+  <li class="software-item">
+    <a class="software-link" href="{{ 'https://github.com/schuefflerlab/' }}">
+      <div>
+        <h3>More on GitHub</h3>
+      </div>
+    </a>
+  </li>
 </ul>
-
-## Additional Links
-
-- [Schüffler Lab](https://schuefflerlab.org/)
-
