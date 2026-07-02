@@ -150,10 +150,10 @@ function createPublicationHtml(item, query) {
   let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, data.date].filter(Boolean).join(', ');
   let links = [];
   if (data.DOI) {
-    links.push(`doi: <a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">${encodeURIComponent(data.DOI)}</a>`);
+    links.push(`doi: <a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">${data.DOI}</a>`);
   }
   if (data.url) {
-    links.push(`<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener">open article</a>`);
+    links.push(`<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener">read article...</a>`);
   }
   if (data.archiveLocation) {
     links.push(`<span>${escapeHtml(data.archiveLocation)}</span>`);
@@ -252,7 +252,7 @@ async function renderZoteroPublications() {
   let container = document.getElementById('zotero-publications');
   let searchInput = document.getElementById('zotero-search-input');
   if (!container || !searchInput) return;
-  container.innerHTML = '<p>Loading <div class="loader"></div></p>';
+  container.innerHTML = '<div>Loading <div class="loader"></div></div>';
   searchInput.disabled = true;
 
   try {
