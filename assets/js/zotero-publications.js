@@ -252,7 +252,7 @@ async function renderZoteroPublications() {
   let container = document.getElementById('zotero-publications');
   let searchInput = document.getElementById('zotero-search-input');
   if (!container || !searchInput) return;
-  container.innerHTML = '<p>Loading publications ...</p>';
+  container.innerHTML = '<p>Loading <span class="loader"></span></p>';
   searchInput.disabled = true;
 
   try {
