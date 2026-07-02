@@ -243,7 +243,7 @@ function renderPublications(items, query = '') {
 
   container.innerHTML = `
     <div class="publications">
-      <ul class="publication-list">${html}</ul>
+      <div class="publication-list">${html}</div>
     </div>
   `;
 }
