@@ -160,7 +160,7 @@ function createPublicationHtml(item, query) {
   }
 
   return `
-    <li class="publication-item">
+    <li class="publication-item panel">
       <p class="publication-title">${highlightText(title, query)}</p>
       <p class="publication-meta">${highlightText(authors, query)}</p>
       ${venue ? `<p class="publication-meta">${highlightText(venue, query)}</p>` : ''}
