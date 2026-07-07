@@ -326,6 +326,11 @@ a:hover {
   object-fit: contain;
 }
 
+.logo-small {
+    max-height: 25px;
+    max-width: 25px;
+}
+
 .project-list {
   list-style: none;
   padding: 0;
@@ -503,4 +508,35 @@ a:hover {
   .hero-card {
     grid-template-columns: 1fr;
   }
+
+  /* Mastodon social media */
+  .mt-container {
+      border: 1px solid lightgrey;
+      border-radius: 10px;
+      font-size: smaller;
+      /*max-height: 78vh;*/
+      max-height: 37%;
+  }
+
+  .mt-post-preview {
+      display: none !important;
+  }
+
+  .mt-post-counter-bar {
+      display: none !important;
+  }
+
+  .mt-btn-violet.btn-see-more {
+      border-radius: 20px !important;
+      background-color: white !important;
+      border: 1px solid var(--mt-color-btn-bg) !important;
+      color: var(--mt-color-btn-bg) !important;
+      font-size: smaller !important;
+  }
+
+  .mt-btn-violet.btn-refresh {
+      display: none !important;
+  }
+
+  /* END Mastodon */
 }
