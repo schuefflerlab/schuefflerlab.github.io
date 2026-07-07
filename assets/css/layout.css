@@ -473,8 +473,11 @@ a:hover {
 }
 
 .logo-xsmall {
-  max-height: 15px;
-  max-width: 15px;
+  max-height: 15px !important;
+  max-width: 15px !important;
+  display: inline !important;
+  border-radius: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .loader {
@@ -485,6 +488,36 @@ a:hover {
   clip-path: inset(0 100% 0 0);
   animation: l1 1s steps(4) infinite;
 }
+
+/* Mastodon social media */
+.mt-container {
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    font-size: smaller;
+    /*max-height: 78vh;*/
+    max-height: 37%;
+}
+
+.mt-post-preview {
+    display: none !important;
+}
+
+.mt-post-counter-bar {
+    display: none !important;
+}
+
+.mt-btn-violet.btn-see-more {
+    border-radius: 20px !important;
+    background-color: white !important;
+    border: 1px solid var(--mt-color-btn-bg) !important;
+    color: var(--mt-color-btn-bg) !important;
+    font-size: smaller !important;
+}
+
+.mt-btn-violet.btn-refresh {
+    display: none !important;
+}
+/* END Mastodon */
 
 @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
 
@@ -508,35 +541,4 @@ a:hover {
   .hero-card {
     grid-template-columns: 1fr;
   }
-
-  /* Mastodon social media */
-  .mt-container {
-      border: 1px solid lightgrey;
-      border-radius: 10px;
-      font-size: smaller;
-      /*max-height: 78vh;*/
-      max-height: 37%;
-  }
-
-  .mt-post-preview {
-      display: none !important;
-  }
-
-  .mt-post-counter-bar {
-      display: none !important;
-  }
-
-  .mt-btn-violet.btn-see-more {
-      border-radius: 20px !important;
-      background-color: white !important;
-      border: 1px solid var(--mt-color-btn-bg) !important;
-      color: var(--mt-color-btn-bg) !important;
-      font-size: smaller !important;
-  }
-
-  .mt-btn-violet.btn-refresh {
-      display: none !important;
-  }
-
-  /* END Mastodon */
 }
