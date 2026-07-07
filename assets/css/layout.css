@@ -495,8 +495,8 @@ a:hover {
     border: 1px solid lightgrey;
     border-radius: 10px;
     font-size: smaller;
-    /*max-height: 78vh;*/
-    max-height: 37%;
+    max-height: 78vh;
+    /*max-height: 37%;*/
     text-align: justify;
 }
 
