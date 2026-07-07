@@ -4,7 +4,7 @@ title: Jobs
 permalink: /jobs/
 ---
 
-## Open Positions
+# Current Openings
 <iframe
   src="https://schuefflerlab.org/TUMJobCrawler"
   width="100%"
@@ -12,7 +12,7 @@ permalink: /jobs/
   frameborder="0"
   style="border:1px solid #d1d5db; border-radius: 8px;"
   loading="lazy"
-  title="Open Positions"
+  title="Current Openings"
 ></iframe>
 
 
@@ -30,17 +30,15 @@ The ideal candidates have a solid technical education in computer science, bioin
 
 As a new lab, we offer flexible work-conditions, the opportunity to shape our lab culture, modern equipment and a working place in the middle of Munich.
 
-### Current PhD Calls
+## Current PhD Calls
 
-- [MDSI - Call for fully funded 3y PhD position.](https://www.mdsi.tum.de/en/mdsi/latest-info/news/full-text/article/mdsi-doctoral-fellowships/)
+- [MDSI - Call for funded PhD positions.](https://www.mdsi.tum.de/en/mdsi/latest-info/news/full-text/article/mdsi-doctoral-fellowships/)
 
-### Application Requirements
+- [MCML - Call for funded PhD positions.](https://mcml.ai/opportunities/for-phd-applicants/)
+
+## Application Requirements
 
 Prospective graduate students may apply directly to any graduate program and mention Prof. Schueffler in their application. Candidates should also feel free to get in contact with Prof. Schueffler before submitting their application to discuss the various programs, the research environment, and the laboratory’s research.
 
-Students who are already enrolled in a graduate program and wish to explore the possibility of rotating in the lab should send a CV and a brief statement of interest to Prof. Schueffler.
-
-### E-mail
-
-[peter.schueffler@tum.de](mailto:peter.schueffler@tum.de)
+Students who are already enrolled in a graduate program and wish to explore the possibility of rotating in the lab should send a CV and a brief statement of interest to Prof. Schueffler ([peter.schueffler@tum.de](mailto:peter.schueffler@tum.de))
 
