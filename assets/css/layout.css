@@ -326,11 +326,6 @@ a:hover {
   object-fit: contain;
 }
 
-.logo-small {
-    max-height: 25px;
-    max-width: 25px;
-}
-
 .project-list {
   list-style: none;
   padding: 0;
@@ -473,8 +468,13 @@ a:hover {
 }
 
 .logo-xsmall {
-  max-height: 15px !important;
-  max-width: 15px !important;
+  max-height: 15px;
+  max-width: 15px;
+}
+
+.logo-small {
+  max-height: 25px !important;
+  max-width: 25px !important;
   display: inline !important;
   border-radius: 0px !important;
   margin-bottom: 0px !important;
