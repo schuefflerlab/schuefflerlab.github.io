@@ -99,6 +99,59 @@ a:hover {
   margin: 0 auto;
 }
 
+.app-page,
+.member-page {
+  max-width: 900px;
+}
+
+.app-header,
+.member-header {
+  margin-bottom: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.app-card,
+.member-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.app-image {
+  width: 220px;
+  max-width: 100%;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+.member-card img {
+  width: 160px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+.app-meta,
+.member-meta {
+  color: #4b5563;
+  margin: 0.5rem 0;
+}
+
+.app-links a,
+.member-contact a {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.app-description,
+.member-content {
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
 .content-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;

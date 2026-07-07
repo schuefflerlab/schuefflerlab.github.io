@@ -1,5 +1,5 @@
 ---
-layout: layout
+layout: sidebar
 title: Contact
 permalink: /contact/
 ---
