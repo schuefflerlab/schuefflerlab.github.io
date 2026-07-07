@@ -478,6 +478,7 @@ a:hover {
   display: inline !important;
   border-radius: 0px !important;
   margin-bottom: 0px !important;
+  vertical-align: middle;
 }
 
 .loader {
@@ -496,6 +497,7 @@ a:hover {
     font-size: smaller;
     /*max-height: 78vh;*/
     max-height: 37%;
+    text-align: justify;
 }
 
 .mt-post-preview {
