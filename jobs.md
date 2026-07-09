@@ -9,7 +9,6 @@ permalink: /jobs/
   id="jobscurrentofferingsiframe"
   src="https://schuefflerlab.org/TUMJobCrawler"
   width="100%"
-  height="200"
   frameborder="0"
   style="border:1px solid #d1d5db; border-radius: 8px;"
   loading="lazy"
