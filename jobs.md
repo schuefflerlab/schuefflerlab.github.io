@@ -6,6 +6,7 @@ permalink: /jobs/
 
 # Current Openings
 <iframe
+  id="jobscurrentofferingsiframe"
   src="https://schuefflerlab.org/TUMJobCrawler"
   width="100%"
   height="200"
@@ -42,3 +43,11 @@ Prospective graduate students may apply directly to any graduate program and men
 
 Students who are already enrolled in a graduate program and wish to explore the possibility of rotating in the lab should send a CV and a brief statement of interest to Prof. Schueffler ([peter.schueffler@tum.de](mailto:peter.schueffler@tum.de))
 
+<script>
+    var iframe = document.getElementById("jobscurrentofferingsiframe");
+
+    // Adjusting the iframe height onload event
+    iframe.onload = function () {
+        iframe.style.height = (20 + iframe.contentWindow.document.body.scrollHeight) + 'px';
+    }
+</script>

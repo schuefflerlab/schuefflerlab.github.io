@@ -16,6 +16,7 @@ We are also part of the [AI in Biomedicine – Elite Master's Program](https://w
 For all semester dates, please refer to the [TUM Academic Calendar](https://www.tum.de/en/studies/application/application-info-portal/dates-periods-and-deadlines).
 
 <iframe
+  id="currentlecturesiframe"
   src="https://schuefflerlab.org/TUMCoursesCrawler"
   width="100%"
   height="500"
@@ -24,3 +25,12 @@ For all semester dates, please refer to the [TUM Academic Calendar](https://www.
   loading="lazy"
   title="TUM Courses"
 ></iframe>
+
+<script>
+    var iframe = document.getElementById("currentlecturesiframe");
+
+    // Adjusting the iframe height onload event
+    iframe.onload = function () {
+        iframe.style.height = (100 + iframe.contentWindow.document.body.scrollHeight) + 'px';
+    }
+</script>
