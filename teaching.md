@@ -19,17 +19,9 @@ For all semester dates, please refer to the [TUM Academic Calendar](https://www.
   id="currentlecturesiframe"
   src="https://schuefflerlab.org/TUMCoursesCrawler"
   width="100%"
+  height="300px"
   frameborder="0"
   style="border:1px solid #d1d5db; border-radius: 8px;"
   loading="lazy"
   title="TUM Courses"
 ></iframe>
-
-<script>
-    var iframe = document.getElementById("currentlecturesiframe");
-
-    // Adjusting the iframe height onload event
-    iframe.onload = function () {
-        iframe.style.height = (100 + iframe.contentWindow.document.body.scrollHeight) + 'px';
-    }
-</script>

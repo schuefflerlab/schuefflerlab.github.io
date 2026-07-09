@@ -9,6 +9,7 @@ permalink: /jobs/
   id="jobscurrentofferingsiframe"
   src="https://schuefflerlab.org/TUMJobCrawler"
   width="100%"
+  height="120px"
   frameborder="0"
   style="border:1px solid #d1d5db; border-radius: 8px;"
   loading="lazy"
@@ -41,12 +42,3 @@ As a new lab, we offer flexible work-conditions, the opportunity to shape our la
 Prospective graduate students may apply directly to any graduate program and mention Prof. Schueffler in their application. Candidates should also feel free to get in contact with Prof. Schueffler before submitting their application to discuss the various programs, the research environment, and the laboratory’s research.
 
 Students who are already enrolled in a graduate program and wish to explore the possibility of rotating in the lab should send a CV and a brief statement of interest to Prof. Schueffler ([peter.schueffler@tum.de](mailto:peter.schueffler@tum.de))
-
-<script>
-    var iframe = document.getElementById("jobscurrentofferingsiframe");
-
-    // Adjusting the iframe height onload event
-    iframe.onload = function () {
-        iframe.style.height = (20 + iframe.contentWindow.document.body.scrollHeight) + 'px';
-    }
-</script>
