@@ -22,9 +22,9 @@ We welcome applications of talented PhD candidates for various topics in computa
 
 We are affiliated with TUM's graduate programs, including:
 
-- [Graduate Center CIT](https://www.cit.tum.de/en/cit/research/doctorate/)
-- [TUM Medical Graduate Center](https://www.mgc.med.tum.de/en)
-- [Other Centers](https://www.gs.tum.de/en/gs/tum-graduate-school/graduate-centers/)
+- [Graduate Center CIT](https://www.cit.tum.de/en/cit/research/doctorate/){:target="_blank"}
+- [TUM Medical Graduate Center](https://www.mgc.med.tum.de/en){:target="_blank"}
+- [Other Centers](https://www.gs.tum.de/en/gs/tum-graduate-school/graduate-centers/){:target="_blank"}
 
 The ideal candidates have a solid technical education in computer science, bioinformatics, biostatistics, mathematics or related fields, and a vivid interest in the interdisciplinary work between computer science and medicine.
 
@@ -32,9 +32,9 @@ As a new lab, we offer flexible work-conditions, the opportunity to shape our la
 
 ## Current PhD Calls
 
-- [MDSI - Call for funded PhD positions.](https://www.mdsi.tum.de/en/mdsi/latest-info/news/full-text/article/mdsi-doctoral-fellowships/)
+- [MDSI - Call for funded PhD positions.](https://www.mdsi.tum.de/en/mdsi/latest-info/news/full-text/article/mdsi-doctoral-fellowships/){:target="_blank"}
 
-- [MCML - Call for funded PhD positions.](https://mcml.ai/opportunities/for-phd-applicants/)
+- [MCML - Call for funded PhD positions.](https://mcml.ai/opportunities/for-phd-applicants/){:target="_blank"}
 
 ## Application Requirements
 
