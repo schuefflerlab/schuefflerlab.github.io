@@ -328,7 +328,7 @@ a:hover {
 
 .project-list {
   list-style: none;
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
   display: grid;
   gap: 12px;
@@ -339,6 +339,10 @@ a:hover {
   border-radius: 12px;
   background: var(--surface-soft);
   border: 1px solid var(--border);
+}
+
+.project-list img {
+  max-width: 120px;
 }
 
 .search-input {
