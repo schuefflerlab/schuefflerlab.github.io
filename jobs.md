@@ -4,10 +4,12 @@ title: Jobs
 permalink: /jobs/
 ---
 
+<style type="text/css" media="screen"> @import url(https://portal.mytum.de/layout-tablet-landscape.css);</style>
+
 # Current Openings
 <iframe
   id="jobscurrentofferingsiframe"
-  src="https://schuefflerlab.org/TUMJobCrawler"
+  src="https://slides.path.med.tum.de/internal/TUMJobCrawler"
   width="100%"
   height="120px"
   frameborder="0"

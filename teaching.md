@@ -4,6 +4,9 @@ title: Teaching
 permalink: /teaching/
 ---
 
+<link href="https://www.pm.mh.tum.de/_frontend/bundled/assets/main-pHWgMXGO.js?1783319508" rel="stylesheet">
+<link href="https://www.pm.mh.tum.de/_frontend/sitetum/bundled/assets/tum-courses-DgdrC3d1.css" rel="stylesheet">
+
 ## Teaching
 
 We participate in the graduate program offered by the TUM, including:
@@ -17,7 +20,7 @@ For all semester dates, please refer to the [TUM Academic Calendar](https://www.
 
 <iframe
   id="currentlecturesiframe"
-  src="https://schuefflerlab.org/TUMCoursesCrawler"
+  src="https://slides.path.med.tum.de/internal/TUMCoursesCrawler"
   width="100%"
   height="300px"
   frameborder="0"
