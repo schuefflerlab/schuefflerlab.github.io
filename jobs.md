@@ -4,8 +4,6 @@ title: Jobs
 permalink: /jobs/
 ---
 
-<style type="text/css" media="screen"> @import url(https://portal.mytum.de/layout-tablet-landscape.css);</style>
-
 # Current Openings
 <iframe
   id="jobscurrentofferingsiframe"
