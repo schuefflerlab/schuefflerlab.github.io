@@ -426,9 +426,15 @@ a:hover {
   margin: 0;
 }
 
+.publication-authors {
+  color: #4b5563;
+  margin: 0;
+}
+
 .publication-meta {
   color: #4b5563;
   margin: 0;
+  text-decoration: italic;
 }
 
 .publication-links a {

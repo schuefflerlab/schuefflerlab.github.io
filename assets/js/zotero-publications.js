@@ -147,7 +147,7 @@ function createPublicationHtml(item, query) {
   let data = item.data || {};
   let title = data.title || data.shortTitle || 'Untitled';
   let authors = formatCreators(data.creators) || 'Unknown authors';
-  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, data.date].filter(Boolean).join(', ');
+  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, parseDateString(data.date)].filter(Boolean).join(', ');
   let links = [];
   if (data.DOI) {
     links.push(`doi: <a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">${data.DOI}</a>`);
@@ -161,7 +161,7 @@ function createPublicationHtml(item, query) {
 
   return `
     <li class="publication-item panel">
-      <p class="publication-meta">${highlightText(authors, query)}</p>
+      <p class="publication-authors">${highlightText(authors, query)}</p>
       <p class="publication-title">${highlightText(title, query)}</p>
       ${venue ? `<p class="publication-meta">${highlightText(venue, query)}</p>` : ''}
       <div class="publication-links">${links.join(' ')}</div>
