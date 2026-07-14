@@ -147,7 +147,7 @@ function createPublicationHtml(item, query) {
   let data = item.data || {};
   let title = data.title || data.shortTitle || 'Untitled';
   let authors = formatCreators(data.creators) || 'Unknown authors';
-  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, parseDateString(data.date)].filter(Boolean).join(', ');
+  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, new Date(getPublicationTimestamp(item)).toISOString().slice(0, 7).split('-').reverse().join('/')].filter(Boolean).join(', ');
   let links = [];
   if (data.DOI) {
     links.push(`doi: <a href="https://doi.org/${encodeURIComponent(data.DOI)}" target="_blank" rel="noopener">${data.DOI}</a>`);

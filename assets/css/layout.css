@@ -434,7 +434,7 @@ a:hover {
 .publication-meta {
   color: #4b5563;
   margin: 0;
-  text-decoration: italic;
+  font-style: italic;
 }
 
 .publication-links a {
