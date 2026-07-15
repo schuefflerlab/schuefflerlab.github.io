@@ -17,7 +17,7 @@ For all semester dates, please refer to the [TUM Academic Calendar](https://www.
 
 <iframe
   id="currentlecturesiframe"
-  src="https://slides.path.med.tum.de/internal/TUMCoursesCrawler"
+  src="https://slides.path.med.tum.de/website/TUMCoursesCrawler"
   width="100%"
   height="300px"
   frameborder="0"
