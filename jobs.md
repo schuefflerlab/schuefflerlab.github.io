@@ -7,7 +7,7 @@ permalink: /jobs/
 # Current Openings
 <iframe
   id="jobscurrentofferingsiframe"
-  src="https://slides.path.med.tum.de/website/TUMJobCrawler"
+  src="https://api.schuefflerlab.org/TUMJobCrawler"
   width="100%"
   height="120px"
   frameborder="0"
