@@ -9,6 +9,30 @@
   --accent-soft: #dbeafe;
   --border: #dbe4f0;
   --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  
+  /* Additional color tokens extracted from the stylesheet */
+  --bg-gradient-1: #f8fbff;
+  --bg-gradient-2: #eef5ff;
+  --bg-gradient-3: #fdfefe;
+  --header-bg: rgba(255, 255, 255, 0.92);
+  --header-border: rgba(219, 228, 240, 0.85);
+  --header-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+  --muted-2: #4b5563;
+  --link-accent: #1d4ed8;
+  --border-light: #e5e7eb;
+  --input-border: #d1d5db;
+  --footer-grad-1: #0f172a;
+  --footer-grad-2: #14243d;
+  --footer-text: #e2e8f0;
+  --footer-link: #cbd5e1;
+  --tiny-border: rgba(226, 232, 240, 0.18);
+  --loader-black: #000;
+  --accent-soft-rgba: rgba(37, 99, 235, 0.08);
+  --teal-soft-rgba: rgba(15, 118, 110, 0.06);
+  --accent-shadow-strong: 0 10px 24px rgba(37, 99, 235, 0.2);
+  --shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 14px 32px rgba(15, 23, 42, 0.14);
+  --light-grey: lightgrey;
 }
 
 * {
@@ -19,7 +43,7 @@ body {
   margin: 0;
   font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
   color: var(--text);
-  background: linear-gradient(135deg, #f8fbff 0%, #eef5ff 45%, #fdfefe 100%);
+  background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 45%, var(--bg-gradient-3) 100%);
   line-height: 1.7;
 }
 
@@ -47,10 +71,10 @@ a:hover {
   justify-content: space-between;
   gap: 16px;
   padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(219, 228, 240, 0.85);
-  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+  border-bottom: 1px solid var(--header-border);
+  box-shadow: var(--header-shadow);
 }
 
 .header-brand {
@@ -192,20 +216,20 @@ a:hover {
 
 .app-meta,
 .member-meta {
-  color: #4b5563;
+  color: var(--muted-2);
   margin: 0.5rem 0;
 }
 
 .app-links a,
 .member-contact a {
-  color: #1d4ed8;
+  color: var(--link-accent);
   text-decoration: none;
 }
 
 .app-description,
 .member-content {
   padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-light);
 }
 
 .content-grid {
@@ -260,7 +284,7 @@ a:hover {
   min-height: 420px;
   border: 0;
   border-radius: 12px;
-  background: white;
+  background: var(--surface);
 }
 
 .hero-card {
@@ -269,7 +293,7 @@ a:hover {
   gap: 24px;
   padding: 24px;
   border-radius: 24px;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(15, 118, 110, 0.06));
+  background: linear-gradient(135deg, var(--accent-soft-rgba), var(--teal-soft-rgba));
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
@@ -318,12 +342,12 @@ a:hover {
 
 .button.primary {
   background: var(--accent);
-  color: white;
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
+  color: var(--surface);
+  box-shadow: var(--accent-shadow-strong);
 }
 
 .button.secondary {
-  background: white;
+  background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
 }
@@ -331,7 +355,7 @@ a:hover {
 .hero-image {
   width: 100%;
   border-radius: 18px;
-  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+  box-shadow: var(--shadow-lg);
   display: block;
   margin-bottom: 2em;
 }
@@ -372,7 +396,7 @@ a:hover {
 
 .logo-grid a:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .logo-grid img {
@@ -406,7 +430,7 @@ a:hover {
   width: 100%;
   max-width: 420px;
   padding: 10px 14px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--input-border);
   border-radius: 10px;
   margin-bottom: 18px;
 }
@@ -427,18 +451,18 @@ a:hover {
 }
 
 .publication-authors {
-  color: #4b5563;
+  color: var(--muted-2);
   margin: 0;
 }
 
 .publication-meta {
-  color: #4b5563;
+  color: var(--muted-2);
   margin: 0;
   font-style: italic;
 }
 
 .publication-links a {
-  color: #1d4ed8;
+  color: var(--link-accent);
   text-decoration: none;
   margin-right: 1rem;
 }
@@ -481,8 +505,8 @@ a:hover {
 
 .site-footer {
   padding: 28px 20px 36px;
-  background: linear-gradient(135deg, #0f172a 0%, #14243d 100%);
-  color: #e2e8f0;
+  background: linear-gradient(135deg, var(--footer-grad-1) 0%, var(--footer-grad-2) 100%);
+  color: var(--footer-text);
 }
 
 .footer-grid {
@@ -500,7 +524,7 @@ a:hover {
 .site-footer h2 {
   font-size: 1rem;
   margin: 0 0 10px;
-  color: white;
+  color: var(--surface);
 }
 
 .site-footer ul {
@@ -511,23 +535,23 @@ a:hover {
 }
 
 .site-footer a {
-  color: #cbd5e1;
+  color: var(--footer-link);
 }
 
 .site-footer a:hover {
-  color: white;
+  color: var(--surface);
 }
 
 .footer-meta {
   max-width: 1100px;
   margin: 18px auto 0;
   padding-top: 16px;
-  border-top: 1px solid rgba(226, 232, 240, 0.18);
+  border-top: 1px solid var(--tiny-border);
   display: flex;
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  color: #cbd5e1;
+  color: var(--footer-link);
 }
 
 .logo-inv {
@@ -552,7 +576,7 @@ a:hover {
   display: inline-block;
   width: 13px;
   aspect-ratio: 4;
-  background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
+  background: radial-gradient(circle closest-side,var(--loader-black) 90%,#0000) 0/calc(100%/3) 100% space;
   clip-path: inset(0 100% 0 0);
   animation: l1 1s steps(4) infinite;
 }
@@ -565,9 +589,9 @@ a:hover {
   gap: 1rem;
 }
 .software-item {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-light);
   border-radius: 0.75rem;
-  background: #fff;
+  background: var(--surface);
   padding: 1rem;
 }
 .software-link {
@@ -588,12 +612,12 @@ a:hover {
 }
 .software-link p {
   margin: 0;
-  color: #4b5563;
+  color: var(--muted-2);
 }
 
 /* Mastodon social media */
 .mt-container {
-    border: 1px solid lightgrey;
+  border: 1px solid var(--light-grey);
     border-radius: 10px;
     font-size: smaller;
     max-height: 78vh;
@@ -611,7 +635,7 @@ a:hover {
 
 .mt-btn-violet.btn-see-more {
     border-radius: 20px !important;
-    background-color: white !important;
+  background-color: var(--surface) !important;
     border: 1px solid var(--mt-color-btn-bg) !important;
     color: var(--mt-color-btn-bg) !important;
     font-size: smaller !important;
