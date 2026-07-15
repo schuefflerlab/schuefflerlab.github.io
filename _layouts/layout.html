@@ -39,6 +39,9 @@
       // If theme is already specified via server or markup, respect it
       if (el.dataset.theme) return;
       try {
+        var stored = null;
+        try { stored = localStorage.getItem('site-theme'); } catch(e) { stored = null; }
+        if (stored) { el.setAttribute('data-theme', stored); return; }
         var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         el.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
       } catch (e) {
@@ -137,6 +140,11 @@
       <div class="footer-meta">
         <span>&copy; {{ site.time | date: "%Y" }} Schüffler Lab</span>
         <a href="{{ '/impressum' | relative_url }}">Impressum</a>
+        <div class="theme-toggle" role="group" aria-label="Theme toggle">
+          <input type="checkbox" id="theme-toggle" aria-labelledby="theme-toggle-label" />
+          <label for="theme-toggle" class="toggle-switch" aria-hidden="true"></label>
+          <span class="visually-hidden" id="theme-toggle-label">Toggle dark mode</span>
+        </div>
       </div>
     </footer>
   </div>
@@ -167,6 +175,33 @@
       profileName: "@schuefflerlab",
     });
   });
+</script>
+
+<script>
+  (function () {
+    function initThemeToggle() {
+      var el = document.documentElement;
+      var toggle = document.getElementById('theme-toggle');
+      if (!toggle) return;
+      var stored = null;
+      try { stored = localStorage.getItem('site-theme'); } catch (e) { stored = null; }
+      var theme = el.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (stored) theme = stored;
+      el.setAttribute('data-theme', theme);
+      toggle.checked = (theme === 'dark');
+      toggle.addEventListener('change', function () {
+        var newTheme = this.checked ? 'dark' : 'light';
+        try { localStorage.setItem('site-theme', newTheme); } catch (e) {}
+        el.setAttribute('data-theme', newTheme);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initThemeToggle, { once: true });
+    } else {
+      initThemeToggle();
+    }
+  })();
 </script>
 
 </html>
