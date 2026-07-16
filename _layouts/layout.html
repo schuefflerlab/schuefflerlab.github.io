@@ -38,7 +38,7 @@
     (function() {
       var el = document.documentElement;
       // If theme is already specified via server or markup, respect it
-      if (el.dataset.theme) return;
+      if (el.dataset.theme) {console.log('Theme already specified (' + el.dataset.theme + ')'); return;}
       try {
         var stored = null;
         try { stored = localStorage.getItem('site-theme'); } catch(e) { stored = null; }
