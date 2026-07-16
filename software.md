@@ -26,9 +26,18 @@ permalink: /software/
     </a>
   </li>
   <li class="software-item">
-    <a class="software-link" href="{{ 'https://github.com/schuefflerlab/' }}">
+    <a class="software-link" href="https://github.com/schuefflerlab/">
+      <img src="{{ '/assets/images/github.png' | relative_url }}" alt="GitHub">
       <div>
-        <h3>More on GitHub</h3>
+        <h3>More software on GitHub</h3>
+      </div>
+    </a>
+  </li>
+  <li class="software-item">
+    <a class="software-link" href="https://huggingface.co/SchuefflerLab/">
+      <img src="{{ '/assets/images/huggingface_logo-noborder.svg' | relative_url }}" alt="Hugging Face">
+      <div>
+        <h3>More software on Hugging Face</h3>
       </div>
     </a>
   </li>
