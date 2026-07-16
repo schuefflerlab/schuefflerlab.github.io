@@ -38,7 +38,7 @@
     (function() {
       var el = document.documentElement;
       // If theme is already specified via server or markup, respect it
-      if (el.dataset.theme) {console.log('Theme already specified (' + el.dataset.theme + ')'); return;}
+      if (el.dataset.theme) return;
       try {
         var stored = null;
         try { stored = localStorage.getItem('site-theme'); } catch(e) { stored = null; }
@@ -162,21 +162,19 @@
   }
 
   domReady(function () {
+    /// Activate Mastodon Timeline
     var container = document.getElementById('mt-container');
-    if (!container || !window.MastodonTimeline || !window.MastodonTimeline.Init) {
-      return;
+    if (container && window.MastodonTimeline && window.MastodonTimeline.Init) {
+      new window.MastodonTimeline.Init({
+        mtContainerId: 'mt-container',
+        instanceUrl: "https://mastodon.social",
+        timelineType: "profile",
+        userId: "113798116554689460",
+        profileName: "@schuefflerlab",
+      });
     }
 
-    /// Activate Mastodon Timeline
-    new window.MastodonTimeline.Init({
-      mtContainerId: 'mt-container',
-      instanceUrl: "https://mastodon.social",
-      timelineType: "profile",
-      userId: "113798116554689460",
-      profileName: "@schuefflerlab",
-    });
-
-    /// Initialize theme toggle
+    /// Initialize dark theme toggle
     (function () {
       function initThemeToggle() {
         var toggle = document.getElementById('theme-toggle');
@@ -187,7 +185,7 @@
         toggle.addEventListener('change', function () {
           var newTheme = this.checked ? 'dark' : 'light';
           try { localStorage.setItem('site-theme', newTheme); } catch (e) {}
-          el.setAttribute('data-theme', newTheme);
+          document.documentElement.setAttribute('data-theme', newTheme);
         });
       }
     })();

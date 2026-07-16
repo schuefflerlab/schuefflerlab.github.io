@@ -24,7 +24,9 @@
   --footer-grad-1: #0f172a;
   --footer-grad-2: #14243d;
   --footer-text: #e2e8f0;
+  --footer-text-2: #ebf4fc;
   --footer-link: #cbd5e1;
+  --footer-link-hover: #b1bfd4;
   --tiny-border: rgba(226, 232, 240, 0.18);
   --loader-black: #000;
   --accent-soft-rgba: rgba(37, 99, 235, 0.08);
@@ -62,7 +64,9 @@
   --footer-grad-1: #071226;
   --footer-grad-2: #0b1220;
   --footer-text: #cfe8ff;
+  --footer-text-2: #ebf4fc;
   --footer-link: #9fb0c8;
+  --footer-link-hover: #b1bfd4;
   --tiny-border: rgba(255,255,255,0.03);
   --loader-black: #fff;
   --accent-soft-rgba: rgba(96, 165, 250, 0.06);
@@ -562,7 +566,7 @@ a:hover {
 .site-footer h2 {
   font-size: 1rem;
   margin: 0 0 10px;
-  color: var(--surface);
+  color: var(--footer-text-2);
 }
 
 .site-footer ul {
@@ -577,7 +581,7 @@ a:hover {
 }
 
 .site-footer a:hover {
-  color: var(--surface);
+  color: var(--footer-link-hover);
 }
 
 .footer-meta {
@@ -673,7 +677,7 @@ a:hover {
 
 .mt-btn-violet.btn-see-more {
     border-radius: 20px !important;
-  background-color: var(--surface) !important;
+    background-color: var(--surface) !important;
     border: 1px solid var(--mt-color-btn-bg) !important;
     color: var(--mt-color-btn-bg) !important;
     font-size: smaller !important;
