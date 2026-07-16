@@ -34,6 +34,7 @@
 
   <link rel="stylesheet" href="{{ '/assets/lib/mastodon-timeline.min.css' | relative_url }}"/>
   <script>
+    // set color scheme (dark/light)
     (function() {
       var el = document.documentElement;
       // If theme is already specified via server or markup, respect it
@@ -174,34 +175,24 @@
       userId: "113798116554689460",
       profileName: "@schuefflerlab",
     });
+
+    /// Initialize theme toggle
+    (function () {
+      function initThemeToggle() {
+        var toggle = document.getElementById('theme-toggle');
+        if (!toggle) return;
+        var el = document.documentElement;
+        var theme = el.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        toggle.checked = (theme === 'dark');
+        toggle.addEventListener('change', function () {
+          var newTheme = this.checked ? 'dark' : 'light';
+          try { localStorage.setItem('site-theme', newTheme); } catch (e) {}
+          el.setAttribute('data-theme', newTheme);
+        });
+      }
+    })();
+
   });
-</script>
-
-<script>
-  (function () {
-    function initThemeToggle() {
-      var el = document.documentElement;
-      var toggle = document.getElementById('theme-toggle');
-      if (!toggle) return;
-      var stored = null;
-      try { stored = localStorage.getItem('site-theme'); } catch (e) { stored = null; }
-      var theme = el.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      if (stored) theme = stored;
-      el.setAttribute('data-theme', theme);
-      toggle.checked = (theme === 'dark');
-      toggle.addEventListener('change', function () {
-        var newTheme = this.checked ? 'dark' : 'light';
-        try { localStorage.setItem('site-theme', newTheme); } catch (e) {}
-        el.setAttribute('data-theme', newTheme);
-      });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initThemeToggle, { once: true });
-    } else {
-      initThemeToggle();
-    }
-  })();
 </script>
 
 </html>
