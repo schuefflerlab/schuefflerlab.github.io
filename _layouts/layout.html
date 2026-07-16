@@ -175,20 +175,17 @@
     }
 
     /// Initialize dark theme toggle
-    (function () {
-      function initThemeToggle() {
+    (function initThemeToggle() {
         var toggle = document.getElementById('theme-toggle');
         if (!toggle) return;
         var el = document.documentElement;
         var theme = el.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         toggle.checked = (theme === 'dark');
         toggle.addEventListener('change', function () {
-          console.log('Theme toggle changed to', this.checked);
           var newTheme = this.checked ? 'dark' : 'light';
           try { localStorage.setItem('site-theme', newTheme); } catch (e) {}
           document.documentElement.setAttribute('data-theme', newTheme);
         });
-      }
     })();
 
   });
