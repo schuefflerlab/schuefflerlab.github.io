@@ -33,6 +33,7 @@
   <title>{{ page.title | default: site.title }}</title>
 
   <link rel="stylesheet" href="{{ '/assets/lib/mastodon-timeline.min.css' | relative_url }}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <script>
     // set color scheme (dark/light)
     (function() {
@@ -145,9 +146,11 @@
         <span>&copy; {{ site.time | date: "%Y" }} Schüffler Lab</span>
         <a href="{{ '/impressum' | relative_url }}">Impressum</a>
         <div class="theme-toggle" role="group" aria-label="Theme toggle">
+          <i class="fa-regular fa-sun"></i>
           <input type="checkbox" id="theme-toggle" aria-labelledby="theme-toggle-label" />
           <label for="theme-toggle" class="toggle-switch" aria-hidden="true"></label>
           <span class="visually-hidden" id="theme-toggle-label">Toggle dark mode</span>
+          <i class="fa-regular fa-moon"></i>
         </div>
       </div>
     </footer>
