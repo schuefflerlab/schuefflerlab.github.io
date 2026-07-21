@@ -644,8 +644,8 @@ a:hover {
   color: inherit;
 }
 .software-link img {
-  width: 160px;
-  max-width: 100%;
+  max-width: 160px;
+  max-height: 90px;
   border-radius: 0.75rem;
   display: block;
 }
