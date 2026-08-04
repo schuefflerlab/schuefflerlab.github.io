@@ -160,7 +160,7 @@ function createPublicationHtml(item, query) {
   }
   let imageHtml = item.imageUrl
     ? `<img class="publication-image" src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(title)} cover image" loading="lazy" />`
-    : '';
+    : '<span class="publication-image-placeholder" aria-hidden="true"></span>';
 
   return `
     <li class="publication-item panel">

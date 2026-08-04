@@ -493,14 +493,23 @@ a:hover {
   align-items: flex-start;
 }
 
-.publication-image {
+.publication-image,
+.publication-image-placeholder {
   width: 96px;
   height: 132px;
+  flex-shrink: 0;
+}
+
+.publication-image {
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--surface-soft);
-  flex-shrink: 0;
+}
+
+.publication-image-placeholder {
+  border-radius: 8px;
+  background: transparent;
 }
 
 .publication-content {
