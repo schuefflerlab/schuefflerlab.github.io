@@ -487,6 +487,26 @@ a:hover {
   margin-left: -1em;
 }
 
+.publication-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.publication-image {
+  width: 96px;
+  height: 132px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  flex-shrink: 0;
+}
+
+.publication-content {
+  min-width: 0;
+}
+
 .publication-title {
   font-weight: 700;
   margin: 0;

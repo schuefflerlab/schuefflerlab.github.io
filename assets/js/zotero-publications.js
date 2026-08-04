@@ -158,13 +158,21 @@ function createPublicationHtml(item, query) {
   if (data.archiveLocation) {
     links.push(`<span>${escapeHtml(data.archiveLocation)}</span>`);
   }
+  let imageHtml = item.imageUrl
+    ? `<img class="publication-image" src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(title)} cover image" loading="lazy" />`
+    : '';
 
   return `
     <li class="publication-item panel">
-      <p class="publication-authors">${highlightText(authors, query)}</p>
-      <p class="publication-title">${highlightText(title, query)}</p>
-      ${venue ? `<p class="publication-meta">${highlightText(venue, query)}</p>` : ''}
-      <div class="publication-links">${links.join(' ')}</div>
+      <div class="publication-row">
+        ${imageHtml}
+        <div class="publication-content">
+          <p class="publication-authors">${highlightText(authors, query)}</p>
+          <p class="publication-title">${highlightText(title, query)}</p>
+          ${venue ? `<p class="publication-meta">${highlightText(venue, query)}</p>` : ''}
+          <div class="publication-links">${links.join(' ')}</div>
+        </div>
+      </div>
     </li>
   `;
 }
@@ -173,6 +181,51 @@ function parseNextLink(linkHeader) {
   if (!linkHeader) return null;
   let match = linkHeader.match(/<([^>]+)>; rel="next"/);
   return match ? match[1] : null;
+}
+
+async function fetchZoteroItemChildren(item) {
+  if (!item?.key || !item?.meta?.numChildren) {
+    return [];
+  }
+
+  let children = [];
+  let url = `https://api.zotero.org/groups/${zoteroGroupID}/items/${encodeURIComponent(item.key)}/children?limit=100&start=0`;
+  while (url) {
+    url = `${url}&v=3&key=${accessKey}&format=json`;
+    let response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Zotero child fetch failed: ${response.status} ${response.statusText}`);
+    }
+    let batch = await response.json();
+    children.push(...batch);
+    url = parseNextLink(response.headers.get('Link'));
+  }
+  return children;
+}
+
+function getPublicationImageUrl(children) {
+  if (!Array.isArray(children) || !children.length) return '';
+
+  const attachment = children.find((child) => {
+    let data = child?.data || {};
+    return data.itemType === 'attachment' && data.contentType?.startsWith('image/') && child?.links?.enclosure?.href;
+  });
+
+  if (!attachment?.links?.enclosure?.href) {
+    return '';
+  }
+
+  let imageUrl = new URL(attachment.links.enclosure.href);
+  imageUrl.searchParams.set('key', accessKey);
+  return imageUrl.toString();
+}
+
+async function preloadPublicationImages(items) {
+  await Promise.allSettled(items.map(async (item) => {
+    let children = await fetchZoteroItemChildren(item);
+    item.imageUrl = getPublicationImageUrl(children);
+  }));
+  return items;
 }
 
 async function fetchZoteroItems() {
@@ -259,6 +312,7 @@ async function renderZoteroPublications() {
     let items = await fetchZoteroItems();
     let filteredZoteroItems = filterPublications(items);
     let sortedZoteroItems = sortPublications(filteredZoteroItems);
+    sortedZoteroItems = await preloadPublicationImages(sortedZoteroItems);
     renderPublications(sortedZoteroItems);
     searchInput.disabled = false;
     searchInput.addEventListener('input', (event) => {
