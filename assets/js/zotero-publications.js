@@ -203,6 +203,25 @@ async function fetchZoteroItemChildren(item) {
   return children;
 }
 
+async function mapWithConcurrency(items, mapper, concurrency = 3) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+
+  const worker = async () => {
+    while (true) {
+      const currentIndex = nextIndex++;
+      if (currentIndex >= items.length) {
+        return;
+      }
+      results[currentIndex] = await mapper(items[currentIndex], currentIndex);
+    }
+  };
+
+  const workers = Array.from({ length: Math.min(concurrency, items.length) }, worker);
+  await Promise.all(workers);
+  return results;
+}
+
 function getPublicationImageUrl(children) {
   if (!Array.isArray(children) || !children.length) return '';
 
@@ -221,10 +240,22 @@ function getPublicationImageUrl(children) {
 }
 
 async function preloadPublicationImages(items) {
-  await Promise.allSettled(items.map(async (item) => {
-    let children = await fetchZoteroItemChildren(item);
+  const publicItems = items.filter((item) => item?.meta?.numChildren > 0);
+  const mappedItems = await mapWithConcurrency(publicItems, async (item) => {
+    const children = await fetchZoteroItemChildren(item);
     item.imageUrl = getPublicationImageUrl(children);
-  }));
+    return item;
+  }, 3);
+
+  for (const item of mappedItems) {
+    if (item) {
+      const original = items.find((candidate) => candidate.key === item.key);
+      if (original) {
+        original.imageUrl = item.imageUrl;
+      }
+    }
+  }
+
   return items;
 }
 
