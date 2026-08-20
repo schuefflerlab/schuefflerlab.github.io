@@ -190,7 +190,7 @@
         toggle.addEventListener('change', function () {
           var newTheme = this.checked ? 'dark' : 'light';
           try { localStorage.setItem('site-theme', newTheme); } catch (e) {}
-          document.documentElement.setAttribute('data-theme', newTheme);
+          document.querySelectorAll('[data-theme]').forEach(function (el) { el.setAttribute('data-theme', newTheme); });
         });
     })();
 
