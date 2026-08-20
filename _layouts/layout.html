@@ -39,15 +39,24 @@
     (function() {
       var el = document.documentElement;
       // If theme is already specified via server or markup, respect it
-      if (el.dataset.theme) return;
+      if (el.dataset.theme) {
+        document.querySelectorAll('[data-theme]').forEach(function (el) { el.setAttribute('data-theme', el.dataset.theme); });
+        return;
+      }
       try {
         var stored = null;
         try { stored = localStorage.getItem('site-theme'); } catch(e) { stored = null; }
-        if (stored) { el.setAttribute('data-theme', stored); return; }
+        if (stored) { 
+          el.setAttribute('data-theme', stored); 
+          document.querySelectorAll('[data-theme]').forEach(function (el) { el.setAttribute('data-theme', stored); });
+          return; 
+        }
         var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         el.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        document.querySelectorAll('[data-theme]').forEach(function (el) { el.setAttribute('data-theme', prefersDark ? 'dark' : 'light'); });
       } catch (e) {
         el.setAttribute('data-theme', 'light');
+        document.querySelectorAll('[data-theme]').forEach(function (el) { el.setAttribute('data-theme', 'light'); });
       }
     })();
   </script>
