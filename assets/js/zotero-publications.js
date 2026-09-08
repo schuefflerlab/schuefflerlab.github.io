@@ -314,7 +314,7 @@ function getPublicationVenue(item) {
 }
 
 function isPeerReviewed(item) {
-  return !/arXiv|in review/i.test(getPublicationVenue(item));
+  return item.data.itemType != "preprint" && !/workshop|jahrestagung|annual meeting|european congress|symposium|arXiv|biorxiv|in review/i.test(getPublicationVenue(item));
 }
 
 function renderPublications(items, query = '', onlyPeerReviewed = false) {
