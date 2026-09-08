@@ -474,6 +474,11 @@ a:hover {
   padding: 10px 14px;
   border: 1px solid var(--input-border);
   border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.publication-filter {
+  display: block;
   margin-bottom: 18px;
 }
 

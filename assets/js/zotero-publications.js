@@ -303,15 +303,24 @@ function matchesSearch(item, query) {
   let data = item.data || {};
   let title = data.title || data.shortTitle || '';
   let authors = formatCreators(data.creators);
-  let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, data.date, data.publisher].filter(Boolean).join(' ');
+  let venue = getPublicationVenue(item);
   let haystack = [title, authors, venue, data.url || '', data.DOI || ''].join(' ').toLowerCase();
   return haystack.includes(query.toLowerCase());
 }
 
-function renderPublications(items, query = '') {
+function getPublicationVenue(item) {
+  let data = item.data || {};
+  return data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository || '';
+}
+
+function isPeerReviewed(item) {
+  return !/arXiv|in review/i.test(getPublicationVenue(item));
+}
+
+function renderPublications(items, query = '', onlyPeerReviewed = false) {
   let container = document.getElementById('zotero-publications');
   if (!container) return;
-  let filtered = items.filter((item) => matchesSearch(item, query));
+  let filtered = items.filter((item) => matchesSearch(item, query) && (!onlyPeerReviewed || isPeerReviewed(item)));
   if (!filtered.length) {
     container.innerHTML = `
       <div class="publications">
@@ -335,23 +344,30 @@ function renderPublications(items, query = '') {
 async function renderZoteroPublications() {
   let container = document.getElementById('zotero-publications');
   let searchInput = document.getElementById('zotero-search-input');
-  if (!container || !searchInput) return;
+  let peerReviewedInput = document.getElementById('peer-reviewed-input');
+  if (!container || !searchInput || !peerReviewedInput) return;
   container.innerHTML = '<div>Loading <div class="loader"></div></div>';
   searchInput.disabled = true;
+  peerReviewedInput.disabled = true;
 
   try {
     let items = await fetchZoteroItems();
     let filteredZoteroItems = filterPublications(items);
     let sortedZoteroItems = sortPublications(filteredZoteroItems);
     sortedZoteroItems = await preloadPublicationImages(sortedZoteroItems);
-    renderPublications(sortedZoteroItems);
+    renderPublications(sortedZoteroItems, '', peerReviewedInput.checked);
     searchInput.disabled = false;
+    peerReviewedInput.disabled = false;
     searchInput.addEventListener('input', (event) => {
-      renderPublications(sortedZoteroItems, event.target.value);
+      renderPublications(sortedZoteroItems, event.target.value, peerReviewedInput.checked);
+    });
+    peerReviewedInput.addEventListener('change', (event) => {
+      renderPublications(sortedZoteroItems, searchInput.value, event.target.checked);
     });
   } catch (error) {
     container.innerHTML = `<p>Failed to load publications: ${escapeHtml(error.message)}</p>`;
     searchInput.disabled = false;
+    peerReviewedInput.disabled = false;
   }
 }
 
