@@ -146,7 +146,7 @@ function highlightText(text, query) {
 function createPublicationHtml(item, query) {
   let data = item.data || {};
   let title = data.title || data.shortTitle || 'Untitled';
-  let authors = formatCreators(data.creators) || 'Unknown authors';
+  let authors = formatCreators(data.creators.filter(x => x.creatorType == "author")) || 'Unknown authors';
   let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, new Date(getPublicationTimestamp(item)).toISOString().slice(0, 7).split('-').reverse().join('/')].filter(Boolean).join(', ');
   let links = [];
   if (data.DOI) {
@@ -302,7 +302,7 @@ function matchesSearch(item, query) {
   if (!query) return true;
   let data = item.data || {};
   let title = data.title || data.shortTitle || '';
-  let authors = formatCreators(data.creators);
+  let authors = formatCreators(data.creators.filter(x => x.creatorType == "author"));
   let venue = getPublicationVenue(item);
   let haystack = [title, authors, venue, data.url || '', data.DOI || ''].join(' ').toLowerCase();
   return haystack.includes(query.toLowerCase());
@@ -376,3 +376,6 @@ if (document.readyState === 'loading') {
 } else {
   renderZoteroPublications();
 }
+
+//items = await fetchZoteroItems();
+//item = items.find(x => x.data.title == "...")
