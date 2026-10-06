@@ -106,6 +106,14 @@ permalink: /team/
 </div>
 
 <div class="team-member">
+  <img src="{{ '/assets/images/members/xm.jpg' | relative_url }}" alt="Xun Ma">
+  <h4><a href="{{ '/members/xm/' | relative_url }}">Xun Ma</a></h4>
+  <p>PhD Student</p>
+  <p>Technical University of Munich<br />Trogerstrasse 18<br />81675 Munich</p>
+  <p>✉️ <a href="mailto:xun.ma@tum.de">xun.ma@tum.de</a></p>
+</div>
+
+<div class="team-member">
   <img src="{{ '/assets/images/members/ak.jpg' | relative_url }}" alt="Azar Kazemi">
   <h4><a href="{{ '/members/ak/' | relative_url }}">Azar Kazemi</a></h4>
   <p>Guest PhD Student</p>
