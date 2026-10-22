@@ -239,40 +239,46 @@ function getPublicationImageUrl(children) {
   return imageUrl.toString();
 }
 
-async function preloadPublicationImages(items) {
-  const publicItems = items.filter((item) => item?.meta?.numChildren > 0);
-  const mappedItems = await mapWithConcurrency(publicItems, async (item) => {
-    const children = await fetchZoteroItemChildren(item);
-    item.imageUrl = getPublicationImageUrl(children);
-    return item;
-  }, 3);
-
-  for (const item of mappedItems) {
-    if (item) {
-      const original = items.find((candidate) => candidate.key === item.key);
-      if (original) {
-        original.imageUrl = item.imageUrl;
-      }
-    }
-  }
-
-  return items;
-}
-
-async function fetchZoteroItems() {
-  let items = [];
-  let url = `${zoteroEndpoint}?limit=100&start=0`; 
-  while (url) {
-    url = `${url}&v=3&key=${accessKey}&format=json`;
-    let response = await fetch(url);
+// Fetches the first page, then all remaining pages in parallel using the Total-Results header.
+async function fetchAllPages(baseUrl) {
+  const pageSize = 100;
+  const buildUrl = (start) => `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}limit=${pageSize}&start=${start}&v=3&key=${accessKey}&format=json`;
+  const fetchPage = async (start) => {
+    let response = await fetch(buildUrl(start));
     if (!response.ok) {
       throw new Error(`Zotero fetch failed: ${response.status} ${response.statusText}`);
     }
-    let batch = await response.json();
-    items.push(...batch);
-    url = parseNextLink(response.headers.get('Link'));
+    return response;
+  };
+
+  const first = await fetchPage(0);
+  const items = await first.json();
+  const total = Number(first.headers.get('Total-Results')) || items.length;
+  const starts = [];
+  for (let start = pageSize; start < total; start += pageSize) starts.push(start);
+  const pages = await Promise.all(starts.map(async (start) => (await fetchPage(start)).json()));
+  for (const page of pages) items.push(...page);
+  return items;
+}
+
+// Loads all image attachments of the group in a few bulk requests instead of one request per item.
+async function preloadPublicationImages(items) {
+  const attachments = await fetchAllPages(`https://api.zotero.org/groups/${zoteroGroupID}/items?itemType=attachment`);
+  const byParent = new Map();
+  for (const attachment of attachments) {
+    const parent = attachment?.data?.parentItem;
+    if (!parent) continue;
+    if (!byParent.has(parent)) byParent.set(parent, []);
+    byParent.get(parent).push(attachment);
+  }
+  for (const item of items) {
+    item.imageUrl = getPublicationImageUrl(byParent.get(item.key));
   }
   return items;
+}
+
+function fetchZoteroItems() {
+  return fetchAllPages(zoteroEndpoint);
 }
 
 function getPublicationTimestamp(item) {
@@ -354,10 +360,13 @@ async function renderZoteroPublications() {
     let items = await fetchZoteroItems();
     let filteredZoteroItems = filterPublications(items);
     let sortedZoteroItems = sortPublications(filteredZoteroItems);
-    sortedZoteroItems = await preloadPublicationImages(sortedZoteroItems);
     renderPublications(sortedZoteroItems, '', peerReviewedInput.checked);
     searchInput.disabled = false;
     peerReviewedInput.disabled = false;
+    // Images load in the background and the list is re-rendered once they are available.
+    preloadPublicationImages(sortedZoteroItems)
+      .then(() => renderPublications(sortedZoteroItems, searchInput.value, peerReviewedInput.checked))
+      .catch((error) => console.warn('Failed to load publication images', error));
     searchInput.addEventListener('input', (event) => {
       renderPublications(sortedZoteroItems, event.target.value, peerReviewedInput.checked);
     });
