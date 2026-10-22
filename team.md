@@ -22,6 +22,9 @@ permalink: /team/
   flex-direction: column;
   align-items: center;
 }
+[data-theme="dark"] .team-member {
+  background: radial-gradient(black, transparent);
+}
 .team-member h4 {
   margin: 0 0 1rem;
 }

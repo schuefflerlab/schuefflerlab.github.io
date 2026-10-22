@@ -37,6 +37,11 @@
   --light-grey: lightgrey;
 }
 
+[data-theme="dark"] #currentlecturesiframe,
+:root[data-theme="dark"] #currentlecturesiframe {
+  background: darkcyan;
+}
+
 /* Dark theme: override tokens when [data-theme="dark"] is set on the root element */
 :root[data-theme="dark"],
 [data-theme="dark"] {
