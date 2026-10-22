@@ -196,6 +196,8 @@
         var el = document.documentElement;
         var theme = el.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         toggle.checked = (theme === 'dark');
+        // The head script runs before the body exists, so sync elements such as #mt-container now
+        document.querySelectorAll('[data-theme]').forEach(function (el) { el.setAttribute('data-theme', theme); });
         toggle.addEventListener('change', function () {
           var newTheme = this.checked ? 'dark' : 'light';
           try { localStorage.setItem('site-theme', newTheme); } catch (e) {}
