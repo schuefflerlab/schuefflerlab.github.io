@@ -159,7 +159,7 @@ function createPublicationHtml(item, query) {
     links.push(`<span>${escapeHtml(data.archiveLocation)}</span>`);
   }
   let imageHtml = item.imageUrl
-    ? `<img class="publication-image" src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(title)} cover image" loading="lazy" />`
+    ? `<img class="publication-image" src="${escapeHtml(item.imageUrl)}" alt="img" loading="lazy" />`
     : '<span class="publication-image-placeholder" aria-hidden="true"></span>';
 
   return `
@@ -175,51 +175,6 @@ function createPublicationHtml(item, query) {
       </div>
     </li>
   `;
-}
-
-function parseNextLink(linkHeader) {
-  if (!linkHeader) return null;
-  let match = linkHeader.match(/<([^>]+)>; rel="next"/);
-  return match ? match[1] : null;
-}
-
-async function fetchZoteroItemChildren(item) {
-  if (!item?.key || !item?.meta?.numChildren) {
-    return [];
-  }
-
-  let children = [];
-  let url = `https://api.zotero.org/groups/${zoteroGroupID}/items/${encodeURIComponent(item.key)}/children?limit=100&start=0`;
-  while (url) {
-    url = `${url}&v=3&key=${accessKey}&format=json`;
-    let response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Zotero child fetch failed: ${response.status} ${response.statusText}`);
-    }
-    let batch = await response.json();
-    children.push(...batch);
-    url = parseNextLink(response.headers.get('Link'));
-  }
-  return children;
-}
-
-async function mapWithConcurrency(items, mapper, concurrency = 3) {
-  const results = new Array(items.length);
-  let nextIndex = 0;
-
-  const worker = async () => {
-    while (true) {
-      const currentIndex = nextIndex++;
-      if (currentIndex >= items.length) {
-        return;
-      }
-      results[currentIndex] = await mapper(items[currentIndex], currentIndex);
-    }
-  };
-
-  const workers = Array.from({ length: Math.min(concurrency, items.length) }, worker);
-  await Promise.all(workers);
-  return results;
 }
 
 function getPublicationImageUrl(children) {
