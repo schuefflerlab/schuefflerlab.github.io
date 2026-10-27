@@ -262,8 +262,7 @@ async function fetchAllPages(baseUrl) {
 }
 
 // Loads all image attachments of the group in a few bulk requests instead of one request per item.
-async function preloadPublicationImages(items) {
-  const attachments = await fetchAllPages(`https://api.zotero.org/groups/${zoteroGroupID}/items?itemType=attachment`);
+async function preloadPublicationImages(items, attachments) {
   const byParent = new Map();
   for (const attachment of attachments) {
     const parent = attachment?.data?.parentItem;
@@ -298,9 +297,15 @@ function sortPublications(publications) {
   });
 }
 
-function filterPublications(publications) {
-  return publications.filter(obj => {
+function filterPublications(items) {
+  return items.filter(obj => {
         return !['note', 'attachment'].includes(obj.data?.itemType || '');
+    })
+}
+
+function filterAttachments(items) {
+  return items.filter(obj => {
+        return ['attachment'].includes(obj.data?.itemType || '');
     })
 }
 
@@ -358,13 +363,14 @@ async function renderZoteroPublications() {
 
   try {
     let items = await fetchZoteroItems();
-    let filteredZoteroItems = filterPublications(items);
-    let sortedZoteroItems = sortPublications(filteredZoteroItems);
+    let filteredZoteroItemsPublications = filterPublications(items);
+    let filteredZoteroItemsAttachments = filterAttachments(items);
+    let sortedZoteroItems = sortPublications(filteredZoteroItemsPublications);
     renderPublications(sortedZoteroItems, '', peerReviewedInput.checked);
     searchInput.disabled = false;
     peerReviewedInput.disabled = false;
     // Images load in the background and the list is re-rendered once they are available.
-    preloadPublicationImages(sortedZoteroItems)
+    preloadPublicationImages(sortedZoteroItems, filteredZoteroItemsAttachments)
       .then(() => renderPublications(sortedZoteroItems, searchInput.value, peerReviewedInput.checked))
       .catch((error) => console.warn('Failed to load publication images', error));
     searchInput.addEventListener('input', (event) => {
