@@ -780,6 +780,10 @@ a:hover {
     align-items: flex-start;
   }
 
+  .publication-row {
+    flex-direction: column;
+  }
+
   .site-nav {
     width: 100%;
   }
