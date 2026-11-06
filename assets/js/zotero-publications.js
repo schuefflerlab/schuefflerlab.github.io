@@ -146,7 +146,7 @@ function highlightText(text, query) {
 function createPublicationHtml(item, query) {
   let data = item.data || {};
   let title = data.title || data.shortTitle || 'Untitled';
-  let authors = formatCreators(data.creators.filter(x => (x.creatorType == "author" || x.creatorType == "presenter"))) || 'Unknown authors';
+  let authors = formatCreators((data.creators || []).filter(x => (x.creatorType == "author" || x.creatorType == "presenter"))) || 'Unknown authors';
   let venue = [data.publicationTitle || data.bookTitle || data.conferenceName || data.meetingName || data.repository, new Date(getPublicationTimestamp(item)).toISOString().slice(0, 7).split('-').reverse().join('/')].filter(Boolean).join(', ');
   let links = [];
   if (data.DOI) {
@@ -194,48 +194,102 @@ function getPublicationImageUrl(children) {
   return imageUrl.toString();
 }
 
-// Fetches the first page, then all remaining pages in parallel using the Total-Results header.
-async function fetchAllPages(baseUrl) {
-  const pageSize = 100;
-  const buildUrl = (start) => `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}limit=${pageSize}&start=${start}&v=3&key=${accessKey}&format=json`;
-  const fetchPage = async (start) => {
-    let response = await fetch(buildUrl(start));
-    if (!response.ok) {
-      throw new Error(`Zotero fetch failed: ${response.status} ${response.statusText}`);
-    }
-    return response;
-  };
+const pageSize = 25; // small pages are answered much faster by the Zotero API and are fetched in parallel
+const cacheKey = `zotero-publications:${zoteroGroupID}:${zoteroCollectionKey}`;
+const cacheFormat = 1;
 
-  const first = await fetchPage(0);
-  const items = await first.json();
-  const total = Number(first.headers.get('Total-Results')) || items.length;
-  const starts = [];
-  for (let start = pageSize; start < total; start += pageSize) starts.push(start);
-  const pages = await Promise.all(starts.map(async (start) => (await fetchPage(start)).json()));
-  for (const page of pages) items.push(...page);
-  return items;
+async function fetchPage(baseUrl, start) {
+  const url = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}limit=${pageSize}&start=${start}&v=3&key=${accessKey}&format=json`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Zotero fetch failed: ${response.status} ${response.statusText}`);
+  }
+  return {
+    items: await response.json(),
+    total: Number(response.headers.get('Total-Results')),
+    version: response.headers.get('Last-Modified-Version')
+  };
 }
 
-// Loads all image attachments of the group in a few bulk requests instead of one request per item.
-async function preloadPublicationImages(items, attachments) {
+// Requests all pages at once, using the expected item count (e.g. from the cache) as a guess.
+// If the collection turns out to be bigger, the missing pages are fetched in a second round.
+async function fetchAllPages(baseUrl, expectedTotal = 250) {
+  const starts = [];
+  for (let start = 0; start < Math.max(expectedTotal, 1); start += pageSize) starts.push(start);
+  const pages = await Promise.all(starts.map((start) => fetchPage(baseUrl, start)));
+  const total = pages[0].total || 0;
+  const extraStarts = [];
+  for (let start = starts.length * pageSize; start < total; start += pageSize) extraStarts.push(start);
+  pages.push(...(await Promise.all(extraStarts.map((start) => fetchPage(baseUrl, start)))));
+  return {
+    items: pages.flatMap((page) => page.items),
+    total,
+    version: pages[0].version
+  };
+}
+
+// Cheap request (~0.4s) that only returns the current library version.
+async function fetchLibraryVersion() {
+  const response = await fetch(`${zoteroEndpoint}?format=versions&limit=1&key=${accessKey}`);
+  if (!response.ok) throw new Error(`Zotero fetch failed: ${response.status} ${response.statusText}`);
+  return response.headers.get('Last-Modified-Version');
+}
+
+// Keeps only the fields needed for rendering so the cache stays small.
+function slimItem(item) {
+  const d = item.data || {};
+  const fields = ['itemType', 'title', 'shortTitle', 'creators', 'publicationTitle', 'bookTitle', 'conferenceName',
+    'meetingName', 'repository', 'date', 'accessDate', 'DOI', 'url', 'archiveLocation', 'parentItem', 'contentType'];
+  const data = {};
+  for (const field of fields) if (d[field]) data[field] = d[field];
+  const enclosure = item.links?.enclosure?.href;
+  return { key: item.key, data, links: enclosure ? { enclosure: { href: enclosure } } : undefined };
+}
+
+function readCache() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(cacheKey));
+    return cached && cached.format === cacheFormat && Array.isArray(cached.items) ? cached : null;
+  } catch (error) {
+    return null;
+  }
+}
+
+function writeCache(result) {
+  try {
+    localStorage.setItem(cacheKey, JSON.stringify({
+      format: cacheFormat,
+      version: result.version,
+      total: result.total,
+      items: result.items.map(slimItem)
+    }));
+  } catch (error) {
+    // storage full or unavailable: caching is optional
+  }
+}
+
+// Turns raw Zotero items (publications + attachments) into sorted publications with image URLs and timestamps.
+function preparePublications(items) {
   const byParent = new Map();
-  for (const attachment of attachments) {
+  for (const attachment of filterAttachments(items)) {
     const parent = attachment?.data?.parentItem;
     if (!parent) continue;
     if (!byParent.has(parent)) byParent.set(parent, []);
     byParent.get(parent).push(attachment);
   }
-  for (const item of items) {
+  const publications = filterPublications(items);
+  for (const item of publications) {
     item.imageUrl = getPublicationImageUrl(byParent.get(item.key));
+    item.timestamp = computePublicationTimestamp(item);
   }
-  return items;
-}
-
-function fetchZoteroItems() {
-  return fetchAllPages(zoteroEndpoint);
+  return sortPublications(publications);
 }
 
 function getPublicationTimestamp(item) {
+  return item.timestamp ?? computePublicationTimestamp(item);
+}
+
+function computePublicationTimestamp(item) {
   const dateStr = item.data?.date || item.data?.accessDate || '';
   const parsed = parseDateString(dateStr);
   if (parsed !== null) return parsed;
@@ -268,7 +322,7 @@ function matchesSearch(item, query) {
   if (!query) return true;
   let data = item.data || {};
   let title = data.title || data.shortTitle || '';
-  let authors = formatCreators(data.creators.filter(x => (x.creatorType == "author" || x.creatorType == "presenter"))) || '';
+  let authors = formatCreators((data.creators || []).filter(x => (x.creatorType == "author" || x.creatorType == "presenter"))) || '';
   let venue = getPublicationVenue(item);
   let haystack = [title, authors, venue, data.url || '', data.DOI || ''].join(' ').toLowerCase();
   return haystack.includes(query.toLowerCase());
@@ -312,30 +366,37 @@ async function renderZoteroPublications() {
   let searchInput = document.getElementById('zotero-search-input');
   let peerReviewedInput = document.getElementById('peer-reviewed-input');
   if (!container || !searchInput || !peerReviewedInput) return;
-  container.innerHTML = '<div>Loading <div class="loader"></div></div>';
-  searchInput.disabled = true;
-  peerReviewedInput.disabled = true;
 
+  let publications = [];
+  const render = () => renderPublications(publications, searchInput.value, peerReviewedInput.checked);
+  searchInput.addEventListener('input', render);
+  peerReviewedInput.addEventListener('change', render);
+
+  // 1) Show cached publications immediately (repeat visits).
+  const cached = readCache();
+  if (cached) {
+    publications = preparePublications(cached.items);
+    render();
+  } else {
+    container.innerHTML = '<div>Loading <div class="loader"></div></div>';
+    searchInput.disabled = true;
+    peerReviewedInput.disabled = true;
+  }
+
+  // 2) Refresh from Zotero; skip the full download if the library version is unchanged.
   try {
-    let items = await fetchZoteroItems();
-    let filteredZoteroItemsPublications = filterPublications(items);
-    let filteredZoteroItemsAttachments = filterAttachments(items);
-    let sortedZoteroItems = sortPublications(filteredZoteroItemsPublications);
-    renderPublications(sortedZoteroItems, '', peerReviewedInput.checked);
-    searchInput.disabled = false;
-    peerReviewedInput.disabled = false;
-    // Images load in the background and the list is re-rendered once they are available.
-    preloadPublicationImages(sortedZoteroItems, filteredZoteroItemsAttachments)
-      .then(() => renderPublications(sortedZoteroItems, searchInput.value, peerReviewedInput.checked))
-      .catch((error) => console.warn('Failed to load publication images', error));
-    searchInput.addEventListener('input', (event) => {
-      renderPublications(sortedZoteroItems, event.target.value, peerReviewedInput.checked);
-    });
-    peerReviewedInput.addEventListener('change', (event) => {
-      renderPublications(sortedZoteroItems, searchInput.value, event.target.checked);
-    });
+    if (cached?.version && (await fetchLibraryVersion()) === cached.version) return;
+    const result = await fetchAllPages(zoteroEndpoint, cached?.total);
+    writeCache(result);
+    publications = preparePublications(result.items);
+    render();
   } catch (error) {
-    container.innerHTML = `<p>Failed to load publications: ${escapeHtml(error.message)}</p>`;
+    if (!cached) {
+      container.innerHTML = `<p>Failed to load publications: ${escapeHtml(error.message)}</p>`;
+    } else {
+      console.warn('Failed to refresh publications', error);
+    }
+  } finally {
     searchInput.disabled = false;
     peerReviewedInput.disabled = false;
   }
