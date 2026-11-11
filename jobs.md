@@ -33,7 +33,7 @@ As a new lab, we offer flexible work-conditions, the opportunity to shape our la
 
 ## Current PhD Calls
 
-- [MDSI - Call for funded PhD positions.](https://www.mdsi.tum.de/en/mdsi/latest-info/news/full-text/article/mdsi-doctoral-fellowships/){:target="_blank"}
+- [MDSI - Call for funded PhD positions.](https://www.mdsi.tum.de/mdsi/startseite/){:target="_blank"}
 
 - [MCML - Call for funded PhD positions.](https://mcml.ai/opportunities/for-phd-applicants/){:target="_blank"}
 
